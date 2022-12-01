@@ -5,22 +5,35 @@
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-         Welcome to the logged in area
+         Velkommen til FOG's quick-byg menu
     </jsp:attribute>
 
-    <jsp:attribute name="footer">
-        Logged in area
-    </jsp:attribute>
+
 
     <jsp:body>
 
-        <p>You should be logged in now</p>
+        <br/>
+        <h3>Venligst skriv længde og bredde på din ønskede carport.</h3>
+
+        <form action="createOrder" method="post">
+
+            <label for="width">Vælg en bredde:</label>
+            <select name="width" id="width">
+                <c:forEach var="i" begin="240" end="600" step="30" >
+                    <option value="${i}">${i} cm</option>
+                </c:forEach>
+            </select>
 
 
-        <c:if test="${sessionScope.user == null}">
-            <p>You are not logged in yet. You can do it here: <a
-                    href="../login.jsp">Login</a></p>
-        </c:if>
+            <label for="length">Vælg en længde:</label>
+            <select name="length" id="length">
+                <c:forEach var="i" begin="240" end="780" step="30" >
+                    <option value="${i}">${i} cm</option>
+                </c:forEach>
+            </select>
+            <button type="submit" class="btn btn-primary">Lav forespørgsel</button>
+
+        </form>
 
     </jsp:body>
 
