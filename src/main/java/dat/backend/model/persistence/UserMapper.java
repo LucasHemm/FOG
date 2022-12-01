@@ -9,25 +9,35 @@ import java.util.logging.Logger;
 
 class UserMapper
 {
-    static User login(String username, String password, ConnectionPool connectionPool) throws DatabaseException
+    static User login(String email, String password, ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "");
 
         User user = null;
 
-        String sql = "SELECT * FROM user WHERE username = ? AND password = ?";
+        String sql = "SELECT * FROM users WHERE email = ? AND password = ?";
 
         try (Connection connection = connectionPool.getConnection())
         {
             try (PreparedStatement ps = connection.prepareStatement(sql))
             {
-                ps.setString(1, username);
+
+                ps.setString(1, email);
                 ps.setString(2, password);
                 ResultSet rs = ps.executeQuery();
                 if (rs.next())
                 {
-                    String role = rs.getString("role");
-                    user = new User(username, password, role);
+
+                    int id = rs.getInt("iduser");
+                    String name = rs.getString("name");
+                    int addressid = rs.getInt("addressid");
+                    String address = getAddressFromAddressid(addressid,connectionPool);
+                    int postalcode = getPostalCodeFromAddressid(addressid,connectionPool);
+                    String cityname = getCityNameFromPostalCode(postalcode,connectionPool);
+                    boolean isadmin = rs.getBoolean("isadmin");
+
+                    user = new User(id,email,name,password,address,postalcode,cityname,isadmin);
+                    System.out.println(user);
                 } else
                 {
                     throw new DatabaseException("Wrong username or password");
@@ -40,33 +50,118 @@ class UserMapper
         return user;
     }
 
-    static User createUser(String username, String password, String role, ConnectionPool connectionPool) throws DatabaseException
-    {
+//    static User createUser(int userid,String email,String name,String password,String address,int postalcode,String cityName,boolean isAdmin, ConnectionPool connectionPool) throws DatabaseException
+//    {
+//        Logger.getLogger("web").log(Level.INFO, "");
+//        User user;
+//        String sql = "insert into user (username, password, role) values (?,?,?)";
+//        try (Connection connection = connectionPool.getConnection())
+//        {
+//            try (PreparedStatement ps = connection.prepareStatement(sql))
+//            {
+//                ps.setString(1, username);
+//                ps.setString(2, password);
+//                ps.setString(3, role);
+//                int rowsAffected = ps.executeUpdate();
+//                if (rowsAffected == 1)
+//                {
+//                    user = new User(id,email,name,password,address, postalcode,isadmin);
+//                } else
+//                {
+//                    throw new DatabaseException("The user with username = " + username + " could not be inserted into the database");
+//                }
+//            }
+//        }
+//        catch (SQLException ex)
+//        {
+//            throw new DatabaseException(ex, "Could not insert username into database");
+//        }
+//        return user;
+//    }
+
+    private static String getCityNameFromPostalCode(int postalCode, ConnectionPool connectionPool) throws DatabaseException{
         Logger.getLogger("web").log(Level.INFO, "");
-        User user;
-        String sql = "insert into user (username, password, role) values (?,?,?)";
+
+        String cityName = null;
+
+        String sql = "SELECT * FROM postalcodes WHERE postalcode = ?";
+
         try (Connection connection = connectionPool.getConnection())
         {
             try (PreparedStatement ps = connection.prepareStatement(sql))
             {
-                ps.setString(1, username);
-                ps.setString(2, password);
-                ps.setString(3, role);
-                int rowsAffected = ps.executeUpdate();
-                if (rowsAffected == 1)
+                ps.setInt(1, postalCode);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next())
                 {
-                    user = new User(username, password, role);
+                    cityName = rs.getString("cityname");
+
                 } else
                 {
-                    throw new DatabaseException("The user with username = " + username + " could not be inserted into the database");
+                    throw new DatabaseException("Wrong postalcode");
                 }
             }
-        }
-        catch (SQLException ex)
+        } catch (SQLException ex)
         {
-            throw new DatabaseException(ex, "Could not insert username into database");
+            throw new DatabaseException(ex, "Error logging in. Something went wrong with the database");
         }
-        return user;
+        return cityName;
+    }
+    private static String getAddressFromAddressid(int addressid, ConnectionPool connectionPool) throws DatabaseException{
+        Logger.getLogger("web").log(Level.INFO, "");
+
+        String address = null;
+
+        String sql = "SELECT * FROM addresses WHERE idaddress = ?";
+
+        try (Connection connection = connectionPool.getConnection())
+        {
+            try (PreparedStatement ps = connection.prepareStatement(sql))
+            {
+                ps.setInt(1, addressid);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next())
+                {
+                    address = rs.getString("streetname");
+
+                } else
+                {
+                    throw new DatabaseException("Wrong addressid");
+                }
+            }
+        } catch (SQLException ex)
+        {
+            throw new DatabaseException(ex, "Error logging in. Something went wrong with the database");
+        }
+        return address;
+    }
+    private static int getPostalCodeFromAddressid(int addressid, ConnectionPool connectionPool) throws DatabaseException{
+        Logger.getLogger("web").log(Level.INFO, "");
+
+        int postalcode = 0;
+
+        String sql = "SELECT * FROM addresses WHERE idaddress = ?";
+
+        try (Connection connection = connectionPool.getConnection())
+        {
+            try (PreparedStatement ps = connection.prepareStatement(sql))
+            {
+                ps.setInt(1, addressid );
+                ResultSet rs = ps.executeQuery();
+                if (rs.next())
+                {
+                    postalcode = rs.getInt("postalcode");
+
+                } else
+                {
+                    throw new DatabaseException("Wrong addressid");
+                }
+            }
+        } catch (SQLException ex)
+        {
+            throw new DatabaseException(ex, "Error logging in. Something went wrong with the database");
+        }
+        return postalcode;
     }
 
 
