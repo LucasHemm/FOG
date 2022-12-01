@@ -14,7 +14,7 @@
     <jsp:body>
 
         ${requestScope.msg}
-
+        ${requestScope.orderList} - her er listen
 
         <p>SIUUUU</p>
     </jsp:body>
