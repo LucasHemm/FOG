@@ -28,10 +28,24 @@ public class Calculator {
         return PartFacade.variantidFromPartid(1, connectionPool);
     }
 
-//    private int postPrice(int length){
-//
-//    }
+    private int postPrice(int length, ConnectionPool connectionPool) {
 
+        int amount = amountOfPosts(length);
+        int partid = postid(connectionPool);
+
+        int price = PartFacade.pricePrMeter(length,partid,connectionPool)*amount;
+
+        return price;
+    }
+
+    private int postCostPrice(int length, ConnectionPool connectionPool){
+        int amount = amountOfPosts(length);
+        int partid = postid(connectionPool);
+
+        int price = PartFacade.costPricePrMeter(length,partid,connectionPool)*amount;
+
+        return price;
+    }
 
 
     //Code for rafters
@@ -58,7 +72,6 @@ public class Calculator {
         int amount = (int) num;
         return amount;
     }
-
 
 
     //Code for beams
@@ -133,7 +146,7 @@ public class Calculator {
         return PartFacade.variantidFromPartid(7, connectionPool);
     }
 
-    public int amountOfBolts(int length){
+    public int amountOfBolts(int length) {
         return amountOfPosts(length) * 3;
     }
 
@@ -144,7 +157,7 @@ public class Calculator {
         return PartFacade.variantidFromPartid(8, connectionPool);
     }
 
-    public int amountOfDiscs(int length){
+    public int amountOfDiscs(int length) {
         return amountOfPosts(length) * 2;
     }
 
@@ -158,25 +171,35 @@ public class Calculator {
     //Used for both beams and roof panels when the length of one is not enough
     private static int[] getVariantsidsFromLength(int length, int partid, ConnectionPool connectionPool) {
         int[] idArray = new int[2];
-        if (length == 630) {
-            idArray[0] = PartFacade.variantidFromLengthAndPartid(300, partid, connectionPool);
-            idArray[1] = PartFacade.variantidFromLengthAndPartid(330, partid, connectionPool);
-        } else if (length == 660) {
-            idArray[0] = PartFacade.variantidFromLengthAndPartid(300, partid, connectionPool);
-            idArray[1] = PartFacade.variantidFromLengthAndPartid(360, partid, connectionPool);
 
-        } else if (length == 690) {
-            idArray[0] = PartFacade.variantidFromLengthAndPartid(300, partid, connectionPool);
-            idArray[1] = PartFacade.variantidFromLengthAndPartid(390, partid, connectionPool);
-        } else if (length == 720) {
-            idArray[0] = PartFacade.variantidFromLengthAndPartid(300, partid, connectionPool);
-            idArray[1] = PartFacade.variantidFromLengthAndPartid(420, partid, connectionPool);
-        } else if (length == 750) {
-            idArray[0] = PartFacade.variantidFromLengthAndPartid(300, partid, connectionPool);
-            idArray[1] = PartFacade.variantidFromLengthAndPartid(450, partid, connectionPool);
-        } else {
-            idArray[0] = PartFacade.variantidFromLengthAndPartid(300, partid, connectionPool);
-            idArray[1] = PartFacade.variantidFromLengthAndPartid(480, partid, connectionPool);
+        switch (length) {
+            case 630:
+                idArray[0] = PartFacade.variantidFromLengthAndPartid(300, partid, connectionPool);
+                idArray[1] = PartFacade.variantidFromLengthAndPartid(330, partid, connectionPool);
+                break;
+            case 660:
+                idArray[0] = PartFacade.variantidFromLengthAndPartid(300, partid, connectionPool);
+                idArray[1] = PartFacade.variantidFromLengthAndPartid(360, partid, connectionPool);
+                break;
+            case 690:
+                idArray[0] = PartFacade.variantidFromLengthAndPartid(300, partid, connectionPool);
+                idArray[1] = PartFacade.variantidFromLengthAndPartid(390, partid, connectionPool);
+                break;
+
+            case 720:
+                idArray[0] = PartFacade.variantidFromLengthAndPartid(300, partid, connectionPool);
+                idArray[1] = PartFacade.variantidFromLengthAndPartid(420, partid, connectionPool);
+                break;
+
+            case 750:
+                idArray[0] = PartFacade.variantidFromLengthAndPartid(300, partid, connectionPool);
+                idArray[1] = PartFacade.variantidFromLengthAndPartid(450, partid, connectionPool);
+                break;
+
+            default:
+                idArray[0] = PartFacade.variantidFromLengthAndPartid(300, partid, connectionPool);
+                idArray[1] = PartFacade.variantidFromLengthAndPartid(480, partid, connectionPool);
+                break;
         }
 
         return idArray;
