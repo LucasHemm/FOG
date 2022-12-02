@@ -11,12 +11,17 @@
 
     <jsp:body>
 
-        <h1>DETTE ER STYKLISTE SIDEN</h1>
+        <h1>STYKLISTE</h1>
+        <h4>Mål på carport</h4>
+        <h2><b>Længde: </b>${requestScope.partList.length} cm.</h2>
+        <h2><b>Bredde: </b>${requestScope.partList.width} cm.</h2>
+
+        <h5></h5>
         <table class="table table-striped">
             <thead>
             <tr>
                 <th>Beskrivelse</th>
-                <th>Længde</th>
+                <th>Længde cm.</th>
                 <th>Antal</th>
                 <th>Enhed</th>
                 <th>Beskrivelse</th>
@@ -29,7 +34,9 @@
                             ${part.part_Description}
                     </td>
                     <td>
+                        <c:if test = "${part.partLength != 0}">
                             ${part.partLength}
+                        </c:if>
                     </td>
                     <td>
                         antal af stk

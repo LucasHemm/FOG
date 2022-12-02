@@ -49,7 +49,6 @@
 
                 <td>
                     ${order.status}
-                    ${order.partlist.partsArrayList} - listen
                 </td>
 
                 <td>
