@@ -32,7 +32,6 @@ class PartMapper {
         return lengthList;
     }
 
-
     static int variantidFromLengthAndPartid(int partlength, int partid, ConnectionPool connectionPool) {
         int variantid = 0;
 
@@ -58,7 +57,6 @@ class PartMapper {
         return variantid;
     }
 
-
     static int variantidFromPartid(int partid, ConnectionPool connectionPool) {
         int variantid = 0;
 
@@ -83,7 +81,7 @@ class PartMapper {
         return variantid;
     }
 
-    static int pricePrMeter(int length, int partid, ConnectionPool connectionPool){
+    static int pricePrMeter(int length, int partid, ConnectionPool connectionPool) {
 
         int price = 0;
 
@@ -96,7 +94,7 @@ class PartMapper {
                 ps.setInt(1, partid);
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
-                    price = rs.getInt("price_pr_unit") * (length/100);
+                    price = rs.getInt("price_pr_unit") * (length / 100);
                 }
 
             } catch (SQLException throwables) {
@@ -108,7 +106,7 @@ class PartMapper {
         return price;
     }
 
-    static int costPricePrMeter(int length, int partid, ConnectionPool connectionPool){
+    static int costPricePrMeter(int length, int partid, ConnectionPool connectionPool) {
 
         int price = 0;
 
@@ -121,7 +119,7 @@ class PartMapper {
                 ps.setInt(1, partid);
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
-                    price = rs.getInt("costprice_pr_unit") * (length/100);
+                    price = rs.getInt("costprice_pr_unit") * (length / 100);
                 }
 
             } catch (SQLException throwables) {
@@ -133,7 +131,7 @@ class PartMapper {
         return price;
     }
 
-    static int PricePrAmount(int partid, ConnectionPool connectionPool){
+    static int PricePrAmount(int partid, ConnectionPool connectionPool) {
 
         int price = 0;
 
@@ -157,7 +155,6 @@ class PartMapper {
         }
         return price;
     }
-
 
     static int costPricePrAmount(int partid, ConnectionPool connectionPool) {
 
@@ -184,26 +181,49 @@ class PartMapper {
         return price;
     }
 
+    static int getLengthFromVariantid(int id, ConnectionPool connectionPool) {
 
+        int length = 0;
+
+        String sql = "select * from partsvariants where idpartsvariants = ?";
+
+        try (Connection connection = connectionPool.getConnection()) {
+
+
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, id);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    length = rs.getInt("partlength");
+                }
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return length;
+    }
+
+
+//********************************************************************************************
 
 
     //Following methods fully inserts a new part in database
 
-    static void newPartInitializer(String description,  int pricePrUnit, int costPricePrUnit, String usage, String type, String unit, String priceUnit,String name, int variantLowerLimit, int variantUpperLimit ,ConnectionPool connectionPool) throws DatabaseException {
+    static void newPartInitializer(String description, int pricePrUnit, int costPricePrUnit, String usage, String type, String unit, String priceUnit, String name, int variantLowerLimit, int variantUpperLimit, ConnectionPool connectionPool) throws DatabaseException {
         int partid = createNewPart(description, pricePrUnit, costPricePrUnit, usage, type, unit, priceUnit, connectionPool);
-        createNewPartVariants(partid,variantLowerLimit, variantUpperLimit,connectionPool);
+        createNewPartVariants(partid, variantLowerLimit, variantUpperLimit, connectionPool);
         addPartToPartList(name, connectionPool);
     }
 
-
-    private static int createNewPart( String description,  int pricePrUnit, int costPricePrUnit, String usage, String type, String unit, String priceUnit, ConnectionPool connectionPool) throws DatabaseException {
+    private static int createNewPart(String description, int pricePrUnit, int costPricePrUnit, String usage, String type, String unit, String priceUnit, ConnectionPool connectionPool) throws DatabaseException {
         int partid = 0;
 
         String sql = "insert into parts (part_description, price_pr_unit, costprice_pr_unit, part_usage, part_type, unit, priceunit) values (?,?,?,?,?,?,?)";
-        try (Connection connection = connectionPool.getConnection())
-        {
-            try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
-            {
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 ps.setString(1, description);
                 ps.setInt(2, pricePrUnit);
                 ps.setInt(3, costPricePrUnit);
@@ -216,9 +236,7 @@ class PartMapper {
                 rs.next();
                 partid = rs.getInt(1);
             }
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             throw new DatabaseException(ex, "Could not insert part into database");
         }
 
@@ -226,13 +244,11 @@ class PartMapper {
         return partid;
     }
 
-    private static void createNewPartVariants(int partid,int variantLowerLimit, int variantUpperLimit, ConnectionPool connectionPool ) throws DatabaseException {
+    private static void createNewPartVariants(int partid, int variantLowerLimit, int variantUpperLimit, ConnectionPool connectionPool) throws DatabaseException {
         int partlength = variantLowerLimit;
         String sql = "insert into partsvariants ( partsid, partlength ) values (?,?)";
-        try (Connection connection = connectionPool.getConnection())
-        {
-            try (PreparedStatement ps = connection.prepareStatement(sql))
-            {
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 while (partlength <= variantUpperLimit) {
                     ps.setInt(1, partid);
                     ps.setInt(2, partlength);
@@ -241,9 +257,7 @@ class PartMapper {
                 }
 
             }
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             throw new DatabaseException(ex, "Could not insert part variant into database");
         }
 
@@ -252,25 +266,25 @@ class PartMapper {
 
     private static void addPartToPartList(String name, ConnectionPool connectionPool) throws DatabaseException {
 
-        String columnName = name+"id";
+        String columnName = name + "id";
 
-        String sql1 ="SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0";
-        String sql2 ="SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0";
-        String sql3 ="SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION'";
+        String sql1 = "SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0";
+        String sql2 = "SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0";
+        String sql3 = "SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION'";
 
-        String sql4 ="ALTER TABLE `fog`.`partslists` \n" +
-                "ADD COLUMN `"+columnName+"` INT(11) NOT NULL AFTER `discid`";
+        String sql4 = "ALTER TABLE `fog`.`partslists` \n" +
+                "ADD COLUMN `" + columnName + "` INT(11) NOT NULL AFTER `discid`";
 
-        String sql5 ="ALTER TABLE `fog`.`partslists` \n" +
-                "ADD CONSTRAINT `"+columnName+"`\n" +
-                "  FOREIGN KEY (`"+columnName+"`)\n" +
+        String sql5 = "ALTER TABLE `fog`.`partslists` \n" +
+                "ADD CONSTRAINT `" + columnName + "`\n" +
+                "  FOREIGN KEY (`" + columnName + "`)\n" +
                 "  REFERENCES `fog`.`partsvariants` (`idpartsvariants`)\n" +
                 "  ON DELETE NO ACTION\n" +
                 "  ON UPDATE NO ACTION";
 
-        String sql6 ="SET SQL_MODE=@OLD_SQL_MODE";
-        String sql7 ="SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS";
-        String sql8 ="SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS";
+        String sql6 = "SET SQL_MODE=@OLD_SQL_MODE";
+        String sql7 = "SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS";
+        String sql8 = "SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS";
 
         try (Connection connection = connectionPool.getConnection()) {
 

@@ -34,9 +34,12 @@ public class PartFacade {
         return PartMapper.costPricePrAmount(partid, connectionPool);
     }
 
-    static void newPartInitializer(String description,  int pricePrUnit, int costPricePrUnit, String usage, String type, String unit, String priceUnit,String name, int variantLowerLimit, int variantUpperLimit ,ConnectionPool connectionPool) throws DatabaseException {
+    public static void newPartInitializer(String description,  int pricePrUnit, int costPricePrUnit, String usage, String type, String unit, String priceUnit,String name, int variantLowerLimit, int variantUpperLimit ,ConnectionPool connectionPool) throws DatabaseException {
         PartMapper.newPartInitializer(description, pricePrUnit, costPricePrUnit, usage, type, unit, priceUnit, name, variantLowerLimit, variantUpperLimit, connectionPool);
     }
 
+    public static int getLengthFromVariantid(int id, ConnectionPool connectionPool) {
+        return PartMapper.getLengthFromVariantid(id, connectionPool);
+    }
 
 }
