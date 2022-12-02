@@ -9,14 +9,59 @@
     </jsp:attribute>
 
 
-
-
     <jsp:body>
 
-        ${requestScope.msg}
+        <h5>${requestScope.msg}</h5>
         ${requestScope.orderList} - her er listen
+        <p><b>Name:</b> ${sessionScope.user.name} <br/>
+            <b>Email:</b> ${sessionScope.user.email}<br/>
+            <b>Adresse:</b> ${sessionScope.user.address}, ${sessionScope.user.postalcode} ${sessionScope.user.cityName}
+        </p>
 
-        <p>SIUUUU</p>
+        <c:forEach var="order" items="${requestScope.orderList}">
+
+            ${order.orderid}
+            ${order.partlist}
+            ${order.status}
+            ${order.timestamp}
+            ${order.userid}
+        </c:forEach>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Ordre</th>
+                <th>Status</th>
+                <th>Se tegning og stykliste</th>
+            </tr>
+            </thead>
+
+            <c:forEach var="order" items="${requestScope.orderList}">
+            <tr>
+                <td>
+                    <p>
+
+                        <b>Order id:</b> ${order.orderid}
+                        <b>Order id:</b> ${order.timestamp}
+
+                    </p>
+
+                </td>
+
+                <td>
+                    ${order.status}
+                    ${order.partlist.partsArrayList} - listen
+                </td>
+
+                <td>
+                    <form>
+                        <button formaction="viewProfileOrder" class="btn btn-primary" formmethod="post" name="partlist"
+                                value="${order.partlist}">Se information
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            </c:forEach>
+        </table>
     </jsp:body>
 
 </t:pagetemplate>

@@ -33,6 +33,19 @@ public class ViewProfile extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ArrayList<Order> orderList= null;
+
+
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        try {
+            orderList = OrderFacade.getOrdersFromUserId(user.getUserid(),connectionPool);
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+        }
+
+
+        request.setAttribute("orderList",orderList);
         request.getRequestDispatcher("WEB-INF/profile.jsp").forward(request, response);
 
     }

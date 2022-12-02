@@ -23,13 +23,10 @@ public class PartList {
 
     private int costprice;
     private int totalprice;
-    private ArrayList<Parts> partsArrayList = new ArrayList<>();
+    private ArrayList<Parts> partsArrayList;
 
 
-    public PartList(int partlistid, int length, int width, int postid, int rafterid,
-                    int beam1id, int beam2id, int screwid, int roofscrewid, int roof1id,int roof2id,
-                    int boltid, int discid, int costprice, int totalprice) {
-
+    public PartList(int partlistid, int length, int width, int postid, int rafterid, int beam1id, int beam2id, int screwid, int roofscrewid, int roof1id, int roof2id, int boltid, int discid, int costprice, int totalprice, ArrayList<Parts> partsArrayList) {
         this.partlistid = partlistid;
         this.length = length;
         this.width = width;
@@ -45,7 +42,7 @@ public class PartList {
         this.discid = discid;
         this.costprice = costprice;
         this.totalprice = totalprice;
-
+        this.partsArrayList = partsArrayList;
     }
 
     public int getRoof1id() {
