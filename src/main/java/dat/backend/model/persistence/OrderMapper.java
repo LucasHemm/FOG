@@ -67,28 +67,28 @@ class OrderMapper
                     Parts rafter = OrderMapper.createPartsFromPartVariantId(rafterid,connectionPool);
                     partsArrayList.add(rafter);
                     int beam1id = rs.getInt("beam1id");
-                    Parts beam1 = OrderMapper.createPartsFromPartVariantId(rafterid,connectionPool);
+                    Parts beam1 = OrderMapper.createPartsFromPartVariantId(beam1id,connectionPool);
                     partsArrayList.add(beam1);
                     int beam2id = rs.getInt("beam2id");
-                    Parts beam2 = OrderMapper.createPartsFromPartVariantId(rafterid,connectionPool);
+                    Parts beam2 = OrderMapper.createPartsFromPartVariantId(beam2id,connectionPool);
                     partsArrayList.add(beam2);
                     int screwid = rs.getInt("screwid");
-                    Parts screw = OrderMapper.createPartsFromPartVariantId(rafterid,connectionPool);
+                    Parts screw = OrderMapper.createPartsFromPartVariantId(screwid,connectionPool);
                     partsArrayList.add(screw);
                     int roofscrewid = rs.getInt("roofscrewid");
-                    Parts roofscrew = OrderMapper.createPartsFromPartVariantId(rafterid,connectionPool);
+                    Parts roofscrew = OrderMapper.createPartsFromPartVariantId(roofscrewid,connectionPool);
                     partsArrayList.add(roofscrew);
                     int roof1id = rs.getInt("roof1id");
-                    Parts roof1 = OrderMapper.createPartsFromPartVariantId(rafterid,connectionPool);
+                    Parts roof1 = OrderMapper.createPartsFromPartVariantId(roof1id,connectionPool);
                     partsArrayList.add(roof1);
                     int roof2id = rs.getInt("roof2id");
-                    Parts roof2 = OrderMapper.createPartsFromPartVariantId(rafterid,connectionPool);
+                    Parts roof2 = OrderMapper.createPartsFromPartVariantId(roof2id,connectionPool);
                     partsArrayList.add(roof2);
                     int boltid = rs.getInt("boltid");
-                    Parts bolt = OrderMapper.createPartsFromPartVariantId(rafterid,connectionPool);
+                    Parts bolt = OrderMapper.createPartsFromPartVariantId(boltid,connectionPool);
                     partsArrayList.add(bolt);
                     int discid = rs.getInt("discid");
-                    Parts disc = OrderMapper.createPartsFromPartVariantId(rafterid,connectionPool);
+                    Parts disc = OrderMapper.createPartsFromPartVariantId(discid,connectionPool);
                     partsArrayList.add(disc);
                     int costprice = rs.getInt("costprice");
                     int totalprice = rs.getInt("totalprice");
@@ -120,7 +120,7 @@ class OrderMapper
                 while (rs.next()) {
                     int length = rs.getInt("partlength");
                     int partid = rs.getInt("partsid");
-                    System.out.println(partid + "dette er dit part it");
+                    System.out.println(partid + "dette er dit part id");
                     part = OrderMapper.createPartsFromPartId(partid,length,connectionPool);
                 }
             }

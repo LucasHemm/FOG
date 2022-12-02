@@ -54,8 +54,8 @@
 
                 <td>
                     <form>
-                        <button formaction="viewProfileOrder" class="btn btn-primary" formmethod="post" name="partlist"
-                                value="${order.partlist}">Se information
+                        <button formaction="viewProfileOrder" class="btn btn-primary" formmethod="post" name="number"
+                                value="${requestScope.orderList.indexOf(order)}">Se information
                         </button>
                     </form>
                 </td>

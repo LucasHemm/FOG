@@ -1,8 +1,11 @@
 package dat.backend.control;
 
 import dat.backend.model.config.ApplicationStart;
+import dat.backend.model.entities.Order;
 import dat.backend.model.entities.PartList;
 import dat.backend.model.entities.Parts;
+import dat.backend.model.entities.User;
+import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.OrderFacade;
 
@@ -25,9 +28,20 @@ public class ViewProfileOrder extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        ArrayList<Parts> partsArrayList = null;
-        PartList partList = (PartList) request.getAttribute("partlist");
-        partsArrayList = partList.getPartsArrayList();
+        ArrayList<Order> ordersArrayList = null;
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        try {
+            ordersArrayList = OrderFacade.getOrdersFromUserId(user.getUserid(), connectionPool);
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+        }
+        int number = Integer.parseInt(request.getParameter("number"));
+        Order order = ordersArrayList.get(number);
+        PartList partList = order.getPartlist();
+        ArrayList<Parts> partsArrayList = partList.getPartsArrayList();
+
+
         request.setAttribute("partsArrayList",partsArrayList);
 
 

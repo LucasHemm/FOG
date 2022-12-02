@@ -26,21 +26,19 @@
             <c:forEach var="part" items="${requestScope.partsArrayList}">
                 <tr>
                     <td>
-                       ${part.part_Description}
-                    </td>
-                        ${part.partLength}
-                    <td>
-                            antal ting og sager
-                    </td>
-
-                    <td>
-
+                            ${part.part_Description}
                     </td>
                     <td>
-
+                            ${part.partLength}
                     </td>
                     <td>
-
+                        antal af stk
+                    </td>
+                    <td>
+                        ${part.unit}
+                    </td>
+                    <td>
+                            ${part.part_Usage}
                     </td>
                 </tr>
             </c:forEach>
