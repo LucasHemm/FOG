@@ -10,10 +10,10 @@ public class UserFacade
         return UserMapper.login(email, password, connectionPool);
     }
 
-//    public static User createUser(int userid,String email,String name,String password,String address,int postalcode,String cityName,boolean isAdmin, ConnectionPool connectionPool) throws DatabaseException
-//    {
-//        return UserMapper.createUser(userid,email,name,password,address, postalcode,cityName,isAdmin,connectionPool);
-//    }
+    public static void createUser(String email,String name,String password,String address,int postalcode,String cityName, String streetname, boolean isAdmin, ConnectionPool connectionPool) throws DatabaseException
+    {
+        UserMapper.createUser(email,name,password,postalcode,cityName, streetname, connectionPool);
+    }
 
 
 }

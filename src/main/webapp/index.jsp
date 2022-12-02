@@ -25,6 +25,10 @@
                     href="login.jsp">Login</a></p>
         </c:if>
 
+        <c:if test="${sessionScope.user == null}">
+            <p>If you don't have an account, you can create one here: <a href="createUser">Opret</a></p>
+        </c:if>
+
     </jsp:body>
 
 </t:pagetemplate>

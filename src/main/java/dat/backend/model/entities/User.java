@@ -11,7 +11,7 @@ public class User
     private String cityName;
     private boolean isAdmin;
 
-    public User(int userid, String email, String name, String password, String address, int postalcode,String cityName, boolean isAdmin) {
+    public User(int userid, String email, String name, String password, String address, int postalcode, String cityName, boolean isAdmin) {
         this.userid = userid;
         this.email = email;
         this.name = name;
