@@ -259,11 +259,10 @@ class PartMapper {
         String sql3 ="SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION'";
 
         String sql4 ="ALTER TABLE `fog`.`partslists` \n" +
-                "ADD COLUMN `"+columnName+"` INT(11) NOT NULL AFTER `totalprice`,\n" +
-                "ADD INDEX `fk_partslists_partsvariants5_idx` (`"+columnName+"` ASC) VISIBLE";
+                "ADD COLUMN `"+columnName+"` INT(11) NOT NULL AFTER `discid`";
 
         String sql5 ="ALTER TABLE `fog`.`partslists` \n" +
-                "ADD CONSTRAINT `fk_partslists_partsvariants5`\n" +
+                "ADD CONSTRAINT `"+columnName+"`\n" +
                 "  FOREIGN KEY (`"+columnName+"`)\n" +
                 "  REFERENCES `fog`.`partsvariants` (`idpartsvariants`)\n" +
                 "  ON DELETE NO ACTION\n" +
@@ -327,5 +326,4 @@ class PartMapper {
             throwables.printStackTrace();
         }
     }
-
 }

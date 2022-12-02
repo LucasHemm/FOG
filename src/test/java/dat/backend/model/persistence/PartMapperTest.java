@@ -16,7 +16,7 @@ class PartMapperTest {
     @Test
     void newPartInitializer() {
         try {
-            PartFacade.newPartInitializer("Part blah",100,60,"blah", "blah", "blah", "blah","blah",300,360,connectionPool);
+            PartFacade.newPartInitializer("Part2 blah3",100,60,"blah3", "blah3", "blah3", "blah3","nameblah3",300,660,connectionPool);
         } catch (DatabaseException e) {
             e.printStackTrace();
         }
