@@ -24,11 +24,11 @@ public class Calculator {
         return amount;
     }
 
-    public int postid(ConnectionPool connectionPool) {
+    public static int postid(ConnectionPool connectionPool) {
         return PartFacade.variantidFromPartid(1, connectionPool);
     }
 
-    private int postPrice(int length, ConnectionPool connectionPool) {
+    private static int postPrice(int length, ConnectionPool connectionPool) {
 
         int amount = amountOfPosts(length);
         int partid = postid(connectionPool);
@@ -38,7 +38,7 @@ public class Calculator {
         return price;
     }
 
-    private int postCostPrice(int length, ConnectionPool connectionPool) {
+    private static int postCostPrice(int length, ConnectionPool connectionPool) {
         int amount = amountOfPosts(length);
         int partid = postid(connectionPool);
 
@@ -74,7 +74,7 @@ public class Calculator {
     }
 
 
-    private int rafterPrice(int length, int width, ConnectionPool connectionPool) {
+    private static int rafterPrice(int length, int width, ConnectionPool connectionPool) {
 
         int amount = amountOfRafters(length);
         int partid = rafterVariantID(width, connectionPool);
@@ -84,7 +84,7 @@ public class Calculator {
         return price;
     }
 
-    private int rafterCostPrice(int length, int width, ConnectionPool connectionPool) {
+    private static int rafterCostPrice(int length, int width, ConnectionPool connectionPool) {
         int amount = amountOfRafters(length);
         int partid = rafterVariantID(width, connectionPool);
 
@@ -150,17 +150,17 @@ public class Calculator {
     //Code for screws
     //4 is hardcoded in methods since we don't choose between different screws on our site
     //Amount is hardcoded since it will always stay the same
-    private int screwAmount = 2;
+    private static int screwAmount = 2;
 
-    public int screwid(ConnectionPool connectionPool) {
+    public static int screwid(ConnectionPool connectionPool) {
         return PartFacade.variantidFromPartid(4, connectionPool);
     }
 
-    private int screwPrice(ConnectionPool connectionPool) {
+    private static int screwPrice(ConnectionPool connectionPool) {
         return PartFacade.PricePrAmount(screwid(connectionPool), connectionPool) * screwAmount;
     }
 
-    private int screwCostPrice(ConnectionPool connectionPool) {
+    private static int screwCostPrice(ConnectionPool connectionPool) {
         return PartFacade.costPricePrAmount(screwid(connectionPool), connectionPool) * screwAmount;
     }
 
@@ -168,23 +168,23 @@ public class Calculator {
     //Code for roof screws
     //5 is hardcoded in methods since we don't choose between different roof screws on our site
     //Amount is hardcoded since it will always stay the same
-    private int roofScrewAmount = 2;
+    private static int roofScrewAmount = 2;
 
-    public int roofScrewid(ConnectionPool connectionPool) {
+    public static int roofScrewid(ConnectionPool connectionPool) {
         return PartFacade.variantidFromPartid(5, connectionPool);
     }
 
-    private int roofScrewPrice(ConnectionPool connectionPool) {
+    private static int roofScrewPrice(ConnectionPool connectionPool) {
         return PartFacade.PricePrAmount(roofScrewid(connectionPool), connectionPool) * roofScrewAmount;
     }
 
-    private int roofScrewCostPrice(ConnectionPool connectionPool) {
+    private static int roofScrewCostPrice(ConnectionPool connectionPool) {
         return PartFacade.costPricePrAmount(roofScrewid(connectionPool), connectionPool) * roofScrewAmount;
     }
 
     //Code for roof panels
     //6 is hardcoded in methods since we don't choose between different roof panels on our site
-    public int amountOfRoofPanels(int width) {
+    public static int amountOfRoofPanels(int width) {
         return Math.round(width / 100);
     }
 
@@ -240,11 +240,11 @@ public class Calculator {
     //Code for bolts
     //7 is hardcoded in methods since we don't choose between different bolts on our site
 
-    public int boltid(ConnectionPool connectionPool) {
+    public static int boltid(ConnectionPool connectionPool) {
         return PartFacade.variantidFromPartid(7, connectionPool);
     }
 
-    public int amountOfBolts(int length, ConnectionPool connectionPool) {
+    public static int amountOfBolts(int length, ConnectionPool connectionPool) {
         int amount = amountOfPosts(length);
 
         int[] arr = beamVariantsid(length, connectionPool);
@@ -257,30 +257,30 @@ public class Calculator {
     }
 
 
-    private int boltPrice(int length, ConnectionPool connectionPool) {
+    private static int boltPrice(int length, ConnectionPool connectionPool) {
         return PartFacade.PricePrAmount(boltid(connectionPool), connectionPool) * amountOfBolts(length, connectionPool);
     }
 
-    private int boltCostPrice(int length, ConnectionPool connectionPool) {
+    private static int boltCostPrice(int length, ConnectionPool connectionPool) {
         return PartFacade.costPricePrAmount(boltid(connectionPool), connectionPool) * amountOfBolts(length, connectionPool);
     }
 
 
     //Code for square discs
     //8 is hardcoded in methods since we don't choose between different square discs on our site
-    public int discid(ConnectionPool connectionPool) {
+    public static int discid(ConnectionPool connectionPool) {
         return PartFacade.variantidFromPartid(8, connectionPool);
     }
 
-    public int amountOfDiscs(int length) {
+    public static int amountOfDiscs(int length) {
         return amountOfPosts(length) + 1;
     }
 
-    private int discPrice(int length, ConnectionPool connectionPool) {
+    private static int discPrice(int length, ConnectionPool connectionPool) {
         return PartFacade.PricePrAmount(discid(connectionPool), connectionPool) * amountOfDiscs(length);
     }
 
-    private int discCostPrice(int length, ConnectionPool connectionPool) {
+    private static int discCostPrice(int length, ConnectionPool connectionPool) {
         return PartFacade.costPricePrAmount(discid(connectionPool), connectionPool) * amountOfDiscs(length);
     }
 
@@ -288,7 +288,7 @@ public class Calculator {
     //Calculations for totalprices
 
 
-    public int totalPriceBeforeTax(int length, int width, ConnectionPool connectionPool) {
+    public static int totalPriceBeforeTax(int length, int width, ConnectionPool connectionPool) {
         int price = 0;
         price += postPrice(length, connectionPool);
         price += rafterPrice(length, width, connectionPool);
@@ -301,11 +301,11 @@ public class Calculator {
         return price;
     }
 
-    public double totalPrice(int length, int width, ConnectionPool connectionPool) {
+    public static double totalPrice(int length, int width, ConnectionPool connectionPool) {
         return totalPriceBeforeTax(length, width, connectionPool) * 1.25;
     }
 
-    public int totalCostPrice(int length, int width, ConnectionPool connectionPool) {
+    public static int totalCostPrice(int length, int width, ConnectionPool connectionPool) {
         int price = 0;
         price += postCostPrice(length, connectionPool);
         price += rafterCostPrice(length, width, connectionPool);
@@ -319,13 +319,63 @@ public class Calculator {
     }
 
 
-    public double percentageGainBeforeTax(int length, int width, ConnectionPool connectionPool) {
+    public static double percentageGainBeforeTax(int length, int width, ConnectionPool connectionPool) {
         return totalPriceBeforeTax(length, width, connectionPool) / totalCostPrice(length, width, connectionPool) * 100;
     }
 
-    public double percentageGainAfterTax(int length, int width, ConnectionPool connectionPool) {
+    public static double percentageGainAfterTax(int length, int width, ConnectionPool connectionPool) {
         return totalPrice(length, width, connectionPool) / totalCostPrice(length, width, connectionPool) * 100;
     }
+
+    public static double percentageGainAfterChangedPriceBeforeTax(int newPrice, int length, int width, ConnectionPool connectionPool) {
+        return newPrice * 0.8 / totalCostPrice(length, width, connectionPool) * 100;
+    }
+
+    public static double percentageGainAfterChangedPriceAfterTax(int newPrice, int length, int width, ConnectionPool connectionPool) {
+        return newPrice / totalCostPrice(length, width, connectionPool) * 100;
+    }
+
+
+    //Lists/Maps of amount of each part
+
+    public static ArrayList<Integer> listOfPartAmounts(int length, int width, ConnectionPool connectionPool) {
+        ArrayList<Integer> listOfPartAmounts = new ArrayList<>();
+
+        //amount of posts
+        listOfPartAmounts.add(amountOfPosts(length));
+        //Amount of rafters
+        listOfPartAmounts.add(amountOfRafters(length));
+        //There will always be 2 beams for beamid1
+        listOfPartAmounts.add(2);
+        //amount for beamid2 if the carport has a length larger than 6.6 meters
+        if (beamVariantsid(length, connectionPool)[1] != 0) {
+            listOfPartAmounts.add(2);
+        }
+        //amount for beamid2 if the carport has a length less than 6.6 meters
+        else {
+            listOfPartAmounts.add(0);
+        }
+        //Amount of screws
+        listOfPartAmounts.add(screwAmount);
+        //Amount of roofscrews
+        listOfPartAmounts.add(roofScrewAmount);
+        //amount for roofid1
+        listOfPartAmounts.add(amountOfRoofPanels(width));
+        //amount for roofid2 if the carport has a length larger than 6 meters
+        if (roofPanelsVariantsid(length, connectionPool)[1] != 0) {
+            listOfPartAmounts.add(amountOfRoofPanels(width));
+        }
+        //amount for roofid2 if the carport has a length less than 6.6 meters
+        else {
+            listOfPartAmounts.add(0);
+        }
+        //Amount of bolts
+        listOfPartAmounts.add(amountOfBolts(length, connectionPool));
+        listOfPartAmounts.add(amountOfDiscs(length));
+
+        return listOfPartAmounts;
+    }
+
 
     //Helper methods
     //Used for both beams and roof panels when the length of one is not enough
