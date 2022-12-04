@@ -81,9 +81,9 @@ class PartMapper {
         return variantid;
     }
 
-    static int pricePrMeter(int length, int partid, ConnectionPool connectionPool) {
+    static double pricePrMeter(double length, int partid, ConnectionPool connectionPool) {
 
-        int price = 0;
+        double price = 0;
 
         String sql = "select * from parts where idparts = ?";
 
@@ -106,9 +106,9 @@ class PartMapper {
         return price;
     }
 
-    static int costPricePrMeter(int length, int partid, ConnectionPool connectionPool) {
+    static double costPricePrMeter(double length, int partid, ConnectionPool connectionPool) {
 
-        int price = 0;
+        double price = 0;
 
         String sql = "select * from parts where idparts = ?";
 
@@ -131,9 +131,9 @@ class PartMapper {
         return price;
     }
 
-    static int PricePrAmount(int partid, ConnectionPool connectionPool) {
+    static double PricePrAmount(int partid, ConnectionPool connectionPool) {
 
-        int price = 0;
+        double price = 0;
 
         String sql = "select * from parts where idparts = ?";
 
@@ -156,9 +156,9 @@ class PartMapper {
         return price;
     }
 
-    static int costPricePrAmount(int partid, ConnectionPool connectionPool) {
+    static double costPricePrAmount(int partid, ConnectionPool connectionPool) {
 
-        int price = 0;
+        double price = 0;
 
         String sql = "select * from parts where idparts = ?";
 

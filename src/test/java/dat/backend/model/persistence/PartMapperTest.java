@@ -21,4 +21,9 @@ class PartMapperTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    void partArray(){
+        System.out.println(PartFacade.partsLengthFromPartid(3,connectionPool));
+    }
 }

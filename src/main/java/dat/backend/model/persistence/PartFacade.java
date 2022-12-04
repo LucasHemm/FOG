@@ -18,19 +18,19 @@ public class PartFacade {
         return PartMapper.variantidFromPartid(partid, connectionPool);
     }
 
-    public static int pricePrMeter(int length, int partid, ConnectionPool connectionPool) {
+    public static double pricePrMeter(int length, int partid, ConnectionPool connectionPool) {
         return PartMapper.pricePrMeter(length, partid, connectionPool);
     }
 
-    public static int costPricePrMeter(int length, int partid, ConnectionPool connectionPool) {
+    public static double costPricePrMeter(int length, int partid, ConnectionPool connectionPool) {
         return PartMapper.costPricePrMeter(length, partid, connectionPool);
     }
 
-    public static int PricePrAmount(int partid, ConnectionPool connectionPool) {
+    public static double PricePrAmount(int partid, ConnectionPool connectionPool) {
         return PartMapper.PricePrAmount(partid, connectionPool);
     }
 
-    public static int costPricePrAmount(int partid, ConnectionPool connectionPool) {
+    public static double costPricePrAmount(int partid, ConnectionPool connectionPool) {
         return PartMapper.costPricePrAmount(partid, connectionPool);
     }
 

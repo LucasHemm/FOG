@@ -28,21 +28,24 @@ public class Calculator {
         return PartFacade.variantidFromPartid(1, connectionPool);
     }
 
-    private static int postPrice(int length, ConnectionPool connectionPool) {
+    private static double postPrice(int length, ConnectionPool connectionPool) {
 
         int amount = amountOfPosts(length);
         int partid = postid(connectionPool);
 
-        int price = PartFacade.pricePrMeter(length, partid, connectionPool) * amount;
+
+        //300 since the post is always 3 meters
+        double price = PartFacade.pricePrMeter(300, partid, connectionPool) * amount;
 
         return price;
     }
 
-    private static int postCostPrice(int length, ConnectionPool connectionPool) {
+    private static double postCostPrice(int length, ConnectionPool connectionPool) {
         int amount = amountOfPosts(length);
         int partid = postid(connectionPool);
 
-        int price = PartFacade.costPricePrMeter(length, partid, connectionPool) * amount;
+        //300 since the post is always 3 meters
+        double price = PartFacade.costPricePrMeter(300, partid, connectionPool) * amount;
 
         return price;
     }
@@ -57,9 +60,9 @@ public class Calculator {
 
         int variantid = 0;
 
-        for (int i : lengthList) {
+        for (int i = 0; i < lengthList.size(); i++) {
             if (lengthList.get(i) >= width) {
-                variantid = lengthList.get(i);
+                variantid = PartFacade.variantidFromLengthAndPartid(lengthList.get(i), 2, connectionPool);
                 break;
             }
         }
@@ -74,21 +77,19 @@ public class Calculator {
     }
 
 
-    private static int rafterPrice(int length, int width, ConnectionPool connectionPool) {
+    public static double rafterPrice(int length, int width, ConnectionPool connectionPool) {
 
         int amount = amountOfRafters(length);
-        int partid = rafterVariantID(width, connectionPool);
 
-        int price = PartFacade.pricePrMeter(length, partid, connectionPool) * amount;
+        double price = PartFacade.pricePrMeter(width, 2, connectionPool) * amount;
 
         return price;
     }
 
-    private static int rafterCostPrice(int length, int width, ConnectionPool connectionPool) {
+    private static double rafterCostPrice(int length, int width, ConnectionPool connectionPool) {
         int amount = amountOfRafters(length);
-        int partid = rafterVariantID(width, connectionPool);
 
-        int price = PartFacade.costPricePrMeter(length, partid, connectionPool) * amount;
+        double price = PartFacade.costPricePrMeter(width, 2, connectionPool) * amount;
 
         return price;
     }
@@ -104,7 +105,7 @@ public class Calculator {
         ArrayList<Integer> lengthList = PartFacade.partsLengthFromPartid(3, connectionPool);
 
         if (length <= 660) {
-            for (int i : lengthList) {
+            for (int i = 0; i < lengthList.size(); i++) {
                 if (lengthList.get(i) >= length) {
                     idArray[0] = PartFacade.variantidFromLengthAndPartid(lengthList.get(i), 3, connectionPool);
                     break;
@@ -118,30 +119,32 @@ public class Calculator {
     }
 
 
-    private static int beamPrice(int lenght, ConnectionPool connectionPool) {
-        int price = 0;
+    public static double beamPrice(int lenght, ConnectionPool connectionPool) {
+        double price = 0;
 
         int partid1 = beamVariantsid(lenght, connectionPool)[0];
         int partid2 = beamVariantsid(lenght, connectionPool)[1];
         int length1 = PartFacade.getLengthFromVariantid(partid1, connectionPool);
         int length2 = PartFacade.getLengthFromVariantid(partid2, connectionPool);
 
-        price += PartFacade.pricePrMeter(length1, partid1, connectionPool);
-        price += PartFacade.pricePrMeter(length2, partid2, connectionPool);
+        price += PartFacade.pricePrMeter(length1, 3, connectionPool) * 2;
+        System.out.println(price);
+        price += PartFacade.pricePrMeter(length2, 3, connectionPool) * 2;
+        System.out.println(price);
 
         return price;
     }
 
-    private static int beamCostPrice(int lenght, ConnectionPool connectionPool) {
-        int price = 0;
+    private static double beamCostPrice(int lenght, ConnectionPool connectionPool) {
+        double price = 0;
 
         int partid1 = beamVariantsid(lenght, connectionPool)[0];
         int partid2 = beamVariantsid(lenght, connectionPool)[1];
         int length1 = PartFacade.getLengthFromVariantid(partid1, connectionPool);
         int length2 = PartFacade.getLengthFromVariantid(partid2, connectionPool);
 
-        price += PartFacade.costPricePrMeter(length1, partid1, connectionPool);
-        price += PartFacade.costPricePrMeter(length2, partid2, connectionPool);
+        price += PartFacade.costPricePrMeter(length1, 3, connectionPool) * 2;
+        price += PartFacade.costPricePrMeter(length2, 3, connectionPool) * 2;
 
         return price;
     }
@@ -156,12 +159,12 @@ public class Calculator {
         return PartFacade.variantidFromPartid(4, connectionPool);
     }
 
-    private static int screwPrice(ConnectionPool connectionPool) {
-        return PartFacade.PricePrAmount(screwid(connectionPool), connectionPool) * screwAmount;
+    private static double screwPrice(ConnectionPool connectionPool) {
+        return PartFacade.PricePrAmount(4, connectionPool) * screwAmount;
     }
 
-    private static int screwCostPrice(ConnectionPool connectionPool) {
-        return PartFacade.costPricePrAmount(screwid(connectionPool), connectionPool) * screwAmount;
+    private static double screwCostPrice(ConnectionPool connectionPool) {
+        return PartFacade.costPricePrAmount(4, connectionPool) * screwAmount;
     }
 
 
@@ -174,12 +177,12 @@ public class Calculator {
         return PartFacade.variantidFromPartid(5, connectionPool);
     }
 
-    private static int roofScrewPrice(ConnectionPool connectionPool) {
-        return PartFacade.PricePrAmount(roofScrewid(connectionPool), connectionPool) * roofScrewAmount;
+    private static double roofScrewPrice(ConnectionPool connectionPool) {
+        return PartFacade.PricePrAmount(5, connectionPool) * roofScrewAmount;
     }
 
-    private static int roofScrewCostPrice(ConnectionPool connectionPool) {
-        return PartFacade.costPricePrAmount(roofScrewid(connectionPool), connectionPool) * roofScrewAmount;
+    private static double roofScrewCostPrice(ConnectionPool connectionPool) {
+        return PartFacade.costPricePrAmount(5, connectionPool) * roofScrewAmount;
     }
 
     //Code for roof panels
@@ -195,7 +198,7 @@ public class Calculator {
         ArrayList<Integer> lengthList = PartFacade.partsLengthFromPartid(6, connectionPool);
 
         if (length <= 600) {
-            for (int i : lengthList) {
+            for (int i = 0; i < lengthList.size(); i++) {
                 if (lengthList.get(i) >= length) {
                     idArray[0] = PartFacade.variantidFromLengthAndPartid(lengthList.get(i), 6, connectionPool);
                     break;
@@ -208,30 +211,32 @@ public class Calculator {
         return idArray;
     }
 
-    private static int roofPanelPrice(int lenght, ConnectionPool connectionPool) {
-        int price = 0;
+    public static double roofPanelPrice(int lenght, int width, ConnectionPool connectionPool) {
+        double price = 0;
 
         int partid1 = roofPanelsVariantsid(lenght, connectionPool)[0];
         int partid2 = roofPanelsVariantsid(lenght, connectionPool)[1];
         int length1 = PartFacade.getLengthFromVariantid(partid1, connectionPool);
         int length2 = PartFacade.getLengthFromVariantid(partid2, connectionPool);
+        int amount = amountOfRoofPanels(width);
 
-        price += PartFacade.pricePrMeter(length1, partid1, connectionPool);
-        price += PartFacade.pricePrMeter(length2, partid2, connectionPool);
+        price += PartFacade.pricePrMeter(length1, 6, connectionPool) * amount;
+        price += PartFacade.pricePrMeter(length2, 6, connectionPool) * amount;
 
         return price;
     }
 
-    private static int roofPanelCostPrice(int lenght, ConnectionPool connectionPool) {
-        int price = 0;
+    private static double roofPanelCostPrice(int lenght, int width, ConnectionPool connectionPool) {
+        double price = 0;
 
         int partid1 = roofPanelsVariantsid(lenght, connectionPool)[0];
         int partid2 = roofPanelsVariantsid(lenght, connectionPool)[1];
         int length1 = PartFacade.getLengthFromVariantid(partid1, connectionPool);
         int length2 = PartFacade.getLengthFromVariantid(partid2, connectionPool);
+        int amount = amountOfRoofPanels(width);
 
-        price += PartFacade.costPricePrMeter(length1, partid1, connectionPool);
-        price += PartFacade.costPricePrMeter(length2, partid2, connectionPool);
+        price += PartFacade.costPricePrMeter(length1, 6, connectionPool) * amount;
+        price += PartFacade.costPricePrMeter(length2, 6, connectionPool) * amount;
 
         return price;
     }
@@ -257,12 +262,12 @@ public class Calculator {
     }
 
 
-    private static int boltPrice(int length, ConnectionPool connectionPool) {
-        return PartFacade.PricePrAmount(boltid(connectionPool), connectionPool) * amountOfBolts(length, connectionPool);
+    private static double boltPrice(int length, ConnectionPool connectionPool) {
+        return PartFacade.PricePrAmount(7, connectionPool) * amountOfBolts(length, connectionPool);
     }
 
-    private static int boltCostPrice(int length, ConnectionPool connectionPool) {
-        return PartFacade.costPricePrAmount(boltid(connectionPool), connectionPool) * amountOfBolts(length, connectionPool);
+    private static double boltCostPrice(int length, ConnectionPool connectionPool) {
+        return PartFacade.costPricePrAmount(7, connectionPool) * amountOfBolts(length, connectionPool);
     }
 
 
@@ -276,26 +281,26 @@ public class Calculator {
         return amountOfPosts(length) + 1;
     }
 
-    private static int discPrice(int length, ConnectionPool connectionPool) {
-        return PartFacade.PricePrAmount(discid(connectionPool), connectionPool) * amountOfDiscs(length);
+    private static double discPrice(int length, ConnectionPool connectionPool) {
+        return PartFacade.PricePrAmount(8, connectionPool) * amountOfDiscs(length);
     }
 
-    private static int discCostPrice(int length, ConnectionPool connectionPool) {
-        return PartFacade.costPricePrAmount(discid(connectionPool), connectionPool) * amountOfDiscs(length);
+    private static double discCostPrice(int length, ConnectionPool connectionPool) {
+        return PartFacade.costPricePrAmount(8, connectionPool) * amountOfDiscs(length);
     }
 
 
     //Calculations for totalprices
 
 
-    public static int totalPriceBeforeTax(int length, int width, ConnectionPool connectionPool) {
-        int price = 0;
+    public static double totalPriceBeforeTax(int length, int width, ConnectionPool connectionPool) {
+        double price = 0;
         price += postPrice(length, connectionPool);
         price += rafterPrice(length, width, connectionPool);
         price += beamPrice(length, connectionPool);
         price += screwPrice(connectionPool);
         price += roofScrewPrice(connectionPool);
-        price += roofPanelPrice(length, connectionPool);
+        price += roofPanelPrice(length, width, connectionPool);
         price += boltPrice(length, connectionPool);
         price += discPrice(length, connectionPool);
         return price;
@@ -305,14 +310,14 @@ public class Calculator {
         return totalPriceBeforeTax(length, width, connectionPool) * 1.25;
     }
 
-    public static int totalCostPrice(int length, int width, ConnectionPool connectionPool) {
-        int price = 0;
+    public static double totalCostPrice(int length, int width, ConnectionPool connectionPool) {
+        double price = 0;
         price += postCostPrice(length, connectionPool);
         price += rafterCostPrice(length, width, connectionPool);
         price += beamCostPrice(length, connectionPool);
         price += screwCostPrice(connectionPool);
         price += roofScrewCostPrice(connectionPool);
-        price += roofPanelCostPrice(length, connectionPool);
+        price += roofPanelCostPrice(length, width,connectionPool);
         price += boltCostPrice(length, connectionPool);
         price += discCostPrice(length, connectionPool);
         return price;
