@@ -44,8 +44,8 @@
 
                     <td>
                         <form>
-                            <button formaction="viewProfileOrder" class="btn btn-primary" formmethod="post" name="number"
-                                    value="${requestScope.orderList.indexOf(order)}">Se information
+                            <button formaction="viewCustomerOrder" class="btn btn-primary" formmethod="post" name="orderid"
+                                    value="${order.orderid}">Se information
                             </button>
                         </form>
                     </td>

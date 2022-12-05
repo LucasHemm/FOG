@@ -21,4 +21,9 @@ public class OrderFacade
     public static ArrayList<Order> getAllOrders(ConnectionPool connectionPool) throws DatabaseException {
         return OrderMapper.getAllOrders(connectionPool);
     }
+    public static Order getOrderFromOrderId(int orderid,ConnectionPool connectionPool) throws DatabaseException {
+        return OrderMapper.getOrderFromOrderId(orderid,connectionPool);
+    }
+
+
 }

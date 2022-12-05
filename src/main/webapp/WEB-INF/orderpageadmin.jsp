@@ -5,13 +5,12 @@
 
 <t:pagetemplate>
     <jsp:attribute name="header">
+        Kunde ${requestScope.user.name}'s Stykliste og tegning.
 
     </jsp:attribute>
 
 
     <jsp:body>
-
-        <h1>STYKLISTE</h1>
         <h4>Mål på carport</h4>
         <h2><b>Længde: </b>${requestScope.partList.length} cm.</h2>
         <h2><b>Bredde: </b>${requestScope.partList.width} cm.</h2>

@@ -254,4 +254,33 @@ class OrderMapper {
     }
 
 
+    public static Order getOrderFromOrderId(int orderid, ConnectionPool connectionPool) throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO, "");
+
+        Order order = null;
+
+        String sql = "SELECT * from orders where idorders=?";
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, orderid);
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    int userid = rs.getInt("userid");
+                    Timestamp timestamp = rs.getTimestamp("timestamp");
+                    int partlistid = rs.getInt("partlistid");
+                    String status = rs.getString("status");
+
+                    PartList partlist = getPartlistFromPartlistId(partlistid, connectionPool);
+
+                    order = new Order(orderid, userid, timestamp, partlist, status);
+
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "No users were found");
+        }
+        return order;
+    }
 }
