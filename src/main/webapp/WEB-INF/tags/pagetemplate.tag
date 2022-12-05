@@ -21,7 +21,12 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
 
-            <c:if test="${sessionScope.user != null}">
+            <c:if test="${sessionScope.user != null && sessionScope.user.admin == true}">
+                <a class="navbar-brand" href="adminRedirect">
+                    <img src="${pageContext.request.contextPath}/images/fogbillede.jpg" width="100px;" class="img-fluid"/>
+                </a>
+            </c:if>
+            <c:if test="${sessionScope.user != null && sessionScope.user.admin != true}">
             <a class="navbar-brand" href="redirect">
                 <img src="${pageContext.request.contextPath}/images/fogbillede.jpg" width="100px;" class="img-fluid"/>
             </a>
@@ -37,7 +42,7 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <c:if test="${sessionScope.user != null }">
+                    <c:if test="${sessionScope.user != null && sessionScope.user.admin != true}">
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/viewProfile">Profil</a>
 
                     </c:if>

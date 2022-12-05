@@ -17,6 +17,10 @@
         <h2><b>Bredde: </b>${requestScope.partList.width} cm.</h2>
         <h2><b>Fulde pris: </b>${requestScope.partList.totalprice} kr.</h2>
 
+        <p><b>Navn: </b> ${requestScope.user.name}
+        <p><b>Email: </b> ${requestScope.user.email}
+        <p><b>Adresse: </b> ${requestScope.user.address}, ${requestScope.user.postalcode} ${requestScope.user.cityName}</p>
+
 
         <table class="table table-striped table-bordered">
             <thead>

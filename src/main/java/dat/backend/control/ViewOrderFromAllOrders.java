@@ -8,6 +8,7 @@ import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.OrderFacade;
+import dat.backend.model.persistence.UserFacade;
 import dat.backend.model.services.Calculator;
 
 import javax.servlet.*;
@@ -43,10 +44,20 @@ public class ViewOrderFromAllOrders extends HttpServlet {
 
         ArrayList<Integer> listOfAmounts = Calculator.listOfPartAmounts(partList.getLength(), partList.getWidth(), connectionPool);
 
+
+        User user = null;
+        try {
+            user = UserFacade.getUserFromUserId(order.getUserid(),connectionPool);
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+        }
+
+        request.setAttribute("user",user);
         request.setAttribute("listOfAmounts", listOfAmounts);
         request.setAttribute("order", order);
         request.setAttribute("partList", partList);
         request.setAttribute("partsArrayList", partsArrayList);
+
 
 
         request.getRequestDispatcher("WEB-INF/orderpageadmin.jsp").forward(request, response);
