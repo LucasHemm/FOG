@@ -357,9 +357,9 @@ public class Calculator {
             listOfPartAmounts.add(2);
         }
         //amount for beamid2 if the carport has a length less than 6.6 meters
-        else {
-            listOfPartAmounts.add(0);
-        }
+//        else {
+//            listOfPartAmounts.add(0);
+//        }
         //Amount of screws
         listOfPartAmounts.add(screwAmount);
         //Amount of roofscrews
@@ -370,15 +370,43 @@ public class Calculator {
         if (roofPanelsVariantsid(length, connectionPool)[1] != 0) {
             listOfPartAmounts.add(amountOfRoofPanels(width));
         }
-        //amount for roofid2 if the carport has a length less than 6.6 meters
-        else {
-            listOfPartAmounts.add(0);
-        }
+        //amount for roofid2 if the carport has a length less than 6 meters
+//        else {
+//            listOfPartAmounts.add(0);
+//        }
         //Amount of bolts
         listOfPartAmounts.add(amountOfBolts(length, connectionPool));
         listOfPartAmounts.add(amountOfDiscs(length));
 
         return listOfPartAmounts;
+    }
+
+    public static ArrayList<Integer> listOfIDs(int length, int width, ConnectionPool connectionPool){
+        ArrayList<Integer> listOfIDs = new ArrayList<>();
+        listOfIDs.add(postid(connectionPool));
+        listOfIDs.add(rafterVariantID(width, connectionPool));
+        listOfIDs.add(beamVariantsid(length,connectionPool)[0]);
+        if (beamVariantsid(length, connectionPool)[1] != 0) {
+            listOfIDs.add(beamVariantsid(length, connectionPool)[1]);
+        }
+        //ID for beamid2 if the carport has a length less than 6.6 meters
+        else {
+            listOfIDs.add(0);
+        }
+        listOfIDs.add(screwid(connectionPool));
+        listOfIDs.add(roofScrewid(connectionPool));
+        listOfIDs.add(roofPanelsVariantsid(length, connectionPool)[0]);
+        if (roofPanelsVariantsid(length, connectionPool)[1] != 0) {
+            listOfIDs.add(roofPanelsVariantsid(length, connectionPool)[1]);
+        }
+        //ID for roofid2 if the carport has a length less than 6 meters
+        else {
+            listOfIDs.add(0);
+        }
+        listOfIDs.add(boltid(connectionPool));
+        listOfIDs.add(discid(connectionPool));
+
+        return listOfIDs;
     }
 
 
