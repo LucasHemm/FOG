@@ -8,9 +8,7 @@ import java.util.ArrayList;
 public class OrderFacade
 {
 
-    public static void createOrder(int userid, int length, int width, int price, int costPrice, ArrayList<Integer> listOfIDs, ConnectionPool connectionPool) {
-        OrderMapper.createOrder(userid, length, width, price, costPrice, listOfIDs, connectionPool);
-    }
+
 
     public static void createOrder(int userid, int length, int width, int price, int costPrice, ArrayList<Integer> listOfIDs, ConnectionPool connectionPool) {
         OrderMapper.createOrder(userid, length, width, price, costPrice, listOfIDs, connectionPool);
