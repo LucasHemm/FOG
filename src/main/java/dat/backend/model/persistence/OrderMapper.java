@@ -4,6 +4,7 @@ import dat.backend.model.entities.Order;
 import dat.backend.model.entities.PartList;
 import dat.backend.model.entities.Parts;
 import dat.backend.model.exceptions.DatabaseException;
+import dat.backend.model.services.Calculator;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -134,6 +135,39 @@ class OrderMapper {
         return part;
     }
 
+
+    public static ArrayList<Order> getAllOrders(ConnectionPool connectionPool) throws DatabaseException {
+
+        Logger.getLogger("web").log(Level.INFO, "");
+
+        ArrayList<Order> orderList = new ArrayList<>();
+
+        String sql = "SELECT * from orders";
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    int orderid = rs.getInt("idorders");
+                    int userid = rs.getInt("userid");
+                    Timestamp timestamp = rs.getTimestamp("timestamp");
+                    int partlistid = rs.getInt("partlistid");
+                    String status = rs.getString("status");
+
+                    PartList partlist = getPartlistFromPartlistId(partlistid, connectionPool);
+
+                    Order order = new Order(orderid, userid, timestamp, partlist, status);
+                    orderList.add(order);
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "No users were found");
+        }
+        return orderList;
+
+    }
+
     private static Parts createPartsFromPartId(int partid, int length, ConnectionPool connectionPool) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "");
 
@@ -218,5 +252,6 @@ class OrderMapper {
         return partListid;
 
     }
+
 
 }

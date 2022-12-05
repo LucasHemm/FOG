@@ -10,11 +10,7 @@
     
     <jsp:body>
 
-        <form method="post">
-            <button formaction="viewCustomers" class="btn btn-info">Kunder</button>
-            <button formaction="viewAllOrders"class="btn btn-info">Ordre</button>
-
-        </form>
+        <p>ALLE KUNDER</p>
         
         
         
