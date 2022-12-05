@@ -12,20 +12,13 @@
     <jsp:body>
 
         <h5>${requestScope.msg}</h5>
-        ${requestScope.orderList} - her er listen
+
         <p><b>Name:</b> ${sessionScope.user.name} <br/>
             <b>Email:</b> ${sessionScope.user.email}<br/>
             <b>Adresse:</b> ${sessionScope.user.address}, ${sessionScope.user.postalcode} ${sessionScope.user.cityName}
         </p>
 
-        <c:forEach var="order" items="${requestScope.orderList}">
 
-            ${order.orderid}
-            ${order.partlist}
-            ${order.status}
-            ${order.timestamp}
-            ${order.userid}
-        </c:forEach>
         <table class="table table-striped">
             <thead>
             <tr>

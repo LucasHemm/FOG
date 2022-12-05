@@ -41,7 +41,7 @@ public class ViewProfileOrder extends HttpServlet {
         PartList partList = order.getPartlist();
         ArrayList<Parts> partsArrayList = partList.getPartsArrayList();
 
-
+        request.setAttribute("order",order);
         request.setAttribute("partList",partList);
         request.setAttribute("partsArrayList",partsArrayList);
 

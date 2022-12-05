@@ -15,41 +15,44 @@
         <h4>Mål på carport</h4>
         <h2><b>Længde: </b>${requestScope.partList.length} cm.</h2>
         <h2><b>Bredde: </b>${requestScope.partList.width} cm.</h2>
+        <h2><b>Fulde pris: </b>${requestScope.partList.totalprice} kr.</h2>
 
-        <h5></h5>
-        <table class="table table-striped table-bordered">
-            <thead>
-            <tr>
-                <th>Beskrivelse</th>
-                <th>Længde cm.</th>
-                <th>Antal</th>
-                <th>Enhed</th>
-                <th>Beskrivelse</th>
-            </tr>
-            </thead>
+        <c:if test="${requestScope.order.status == 'Betalt'}">
 
-            <c:forEach var="part" items="${requestScope.partsArrayList}">
+            <table class="table table-striped table-bordered">
+                <thead>
                 <tr>
-                    <td>
-                            ${part.part_Description}
-                    </td>
-                    <td>
-                        <c:if test = "${part.partLength != 0}">
-                            ${part.partLength}
-                        </c:if>
-                    </td>
-                    <td>
-                        antal af stk
-                    </td>
-                    <td>
-                        ${part.unit}
-                    </td>
-                    <td>
-                            ${part.part_Usage}
-                    </td>
+                    <th>Beskrivelse</th>
+                    <th>Længde cm.</th>
+                    <th>Antal</th>
+                    <th>Enhed</th>
+                    <th>Beskrivelse</th>
                 </tr>
-            </c:forEach>
-        </table>
+                </thead>
+
+                <c:forEach var="part" items="${requestScope.partsArrayList}">
+                    <tr>
+                        <td>
+                                ${part.part_Description}
+                        </td>
+                        <td>
+                            <c:if test="${part.partLength != 0}">
+                                ${part.partLength}
+                            </c:if>
+                        </td>
+                        <td>
+                            antal af stk
+                        </td>
+                        <td>
+                                ${part.unit}
+                        </td>
+                        <td>
+                                ${part.part_Usage}
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </c:if>
     </jsp:body>
 
 </t:pagetemplate>
