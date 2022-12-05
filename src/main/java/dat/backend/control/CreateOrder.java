@@ -34,6 +34,21 @@ public class CreateOrder extends HttpServlet {
 
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
+        int userid = user.getUserid();
+        int length = Integer.parseInt(request.getParameter("length"));
+        int width = Integer.parseInt(request.getParameter("width"));
+        //Price after tax
+        int price = (int) Math.round(Calculator.totalPrice(length, width, connectionPool));
+        int costPrice = (int) Math.round(Calculator.totalCostPrice(length, width, connectionPool));
+        ArrayList<Integer> listOfIDs = Calculator.listOfIDs(length, width, connectionPool);
+
+        OrderFacade.createOrder(userid,length,width,price,costPrice,listOfIDs,connectionPool);
+
+
+
+
+//        HttpSession session = request.getSession();
+//        User user = (User) session.getAttribute("user");
         try {
             orderList = OrderFacade.getOrdersFromUserId(user.getUserid(),connectionPool);
         } catch (DatabaseException e) {
