@@ -35,6 +35,5 @@ public class CreateOrder extends HttpServlet {
 
         OrderFacade.createOrder(userid,length,width,price,costPrice,listOfIDs,connectionPool);
 
-
     }
 }
