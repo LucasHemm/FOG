@@ -29,27 +29,28 @@
                     <th>Beskrivelse</th>
                 </tr>
                 </thead>
-
-                <c:forEach var="part" items="${requestScope.partsArrayList}">
-                    <tr>
-                        <td>
-                                ${part.part_Description}
-                        </td>
-                        <td>
-                            <c:if test="${part.partLength != 0}">
-                                ${part.partLength}
-                            </c:if>
-                        </td>
-                        <td>
-                            antal af stk
-                        </td>
-                        <td>
-                                ${part.unit}
-                        </td>
-                        <td>
-                                ${part.part_Usage}
-                        </td>
-                    </tr>
+                <c:forEach var="part" items="${requestScope.partsArrayList}" varStatus="status">
+                    <c:if test="${part.part_Description != 'Placeholder/Deafault'}">
+                        <tr>
+                            <td>
+                                    ${part.part_Description}
+                            </td>
+                            <td>
+                                <c:if test="${part.partLength != 0}">
+                                    ${part.partLength}
+                                </c:if>
+                            </td>
+                            <td>
+                                ${requestScope.listOfAmounts.get(status.index)}
+                            </td>
+                            <td>
+                                    ${part.unit}
+                            </td>
+                            <td>
+                                    ${part.part_Usage}
+                            </td>
+                        </tr>
+                    </c:if>
                 </c:forEach>
             </table>
         </c:if>

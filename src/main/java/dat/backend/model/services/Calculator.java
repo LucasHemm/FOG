@@ -171,7 +171,7 @@ public class Calculator {
     //Code for roof screws
     //5 is hardcoded in methods since we don't choose between different roof screws on our site
     //Amount is hardcoded since it will always stay the same
-    private static int roofScrewAmount = 2;
+    private static int roofScrewAmount = 3;
 
     public static int roofScrewid(ConnectionPool connectionPool) {
         return PartFacade.variantidFromPartid(5, connectionPool);
@@ -356,9 +356,9 @@ public class Calculator {
             listOfPartAmounts.add(2);
         }
         //amount for beamid2 if the carport has a length less than 6.6 meters
-//        else {
-//            listOfPartAmounts.add(0);
-//        }
+        else {
+            listOfPartAmounts.add(0);
+        }
         //Amount of screws
         listOfPartAmounts.add(screwAmount);
         //Amount of roofscrews
@@ -370,9 +370,9 @@ public class Calculator {
             listOfPartAmounts.add(amountOfRoofPanels(width));
         }
         //amount for roofid2 if the carport has a length less than 6 meters
-//        else {
-//            listOfPartAmounts.add(0);
-//        }
+        else {
+            listOfPartAmounts.add(0);
+        }
         //Amount of bolts
         listOfPartAmounts.add(amountOfBolts(length, connectionPool));
         listOfPartAmounts.add(amountOfDiscs(length));
@@ -390,7 +390,7 @@ public class Calculator {
         }
         //ID for beamid2 if the carport has a length less than 6.6 meters
         else {
-            listOfIDs.add(0);
+            listOfIDs.add(45);
         }
         listOfIDs.add(screwid(connectionPool));
         listOfIDs.add(roofScrewid(connectionPool));
@@ -400,7 +400,7 @@ public class Calculator {
         }
         //ID for roofid2 if the carport has a length less than 6 meters
         else {
-            listOfIDs.add(0);
+            listOfIDs.add(45);
         }
         listOfIDs.add(boltid(connectionPool));
         listOfIDs.add(discid(connectionPool));

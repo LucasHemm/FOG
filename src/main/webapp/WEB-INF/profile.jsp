@@ -33,8 +33,8 @@
                 <td>
                     <p>
 
-                        <b>Order id:</b> ${order.orderid}
-                        <b>Order id:</b> ${order.timestamp}
+                        <b>Ordre id:</b> ${order.orderid}
+                        <b>Dato:</b> ${order.timestamp}
 
                     </p>
 

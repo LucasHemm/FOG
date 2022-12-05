@@ -8,6 +8,7 @@ import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.OrderFacade;
+import dat.backend.model.services.Calculator;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -41,6 +42,9 @@ public class ViewProfileOrder extends HttpServlet {
         PartList partList = order.getPartlist();
         ArrayList<Parts> partsArrayList = partList.getPartsArrayList();
 
+        ArrayList<Integer> listOfAmounts = Calculator.listOfPartAmounts(partList.getLength(),partList.getWidth(),connectionPool);
+
+        request.setAttribute("listOfAmounts",listOfAmounts);
         request.setAttribute("order",order);
         request.setAttribute("partList",partList);
         request.setAttribute("partsArrayList",partsArrayList);
