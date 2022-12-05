@@ -20,16 +20,27 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
+
+            <c:if test="${sessionScope.user != null}">
+            <a class="navbar-brand" href="redirect">
+                <img src="${pageContext.request.contextPath}/images/fogbillede.jpg" width="100px;" class="img-fluid"/>
+            </a>
+            </c:if>
+            <c:if test="${sessionScope.user == null }">
             <a class="navbar-brand" href="index.jsp">
                 <img src="${pageContext.request.contextPath}/images/fogbillede.jpg" width="100px;" class="img-fluid"/>
             </a>
+            </c:if>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                     aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link" href="${pageContext.request.contextPath}/">Page 1</a>
+                    <c:if test="${sessionScope.user != null }">
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/viewProfile">Profil</a>
+
+                    </c:if>
                     <a class="nav-item nav-link" href="${pageContext.request.contextPath}/">Page 2</a>
                     <a class="nav-item nav-link" href="${pageContext.request.contextPath}/">Page 3</a>
                     <c:if test="${sessionScope.user == null }">
@@ -50,24 +61,6 @@
 </div>
 
 <!-- Footer -->
-<div class="container mt-3">
-    <hr/>
-    <div class="row mt-4">
-        <div class="col">
-            Nørgaardsvej 30<br/>
-            2800 Lyngby
-        </div>
-        <div class="col">
-            <jsp:invoke fragment="footer"/><br/>
-            <p>&copy; 2022 Cphbusiness</p>
-        </div>
-        <div class="col">
-            Datamatikeruddannelsen<br/>
-            2. semester efterår 2022
-        </div>
-    </div>
-
-</div>
 
 </div>
 

@@ -9,9 +9,7 @@
              Login
     </jsp:attribute>
 
-    <jsp:attribute name="footer">
-            Login
-    </jsp:attribute>
+
 
     <jsp:body>
 

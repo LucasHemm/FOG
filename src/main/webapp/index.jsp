@@ -8,9 +8,7 @@
          Welcome to the frontpage
     </jsp:attribute>
 
-    <jsp:attribute name="footer">
-        Welcome to the frontpage
-    </jsp:attribute>
+
 
     <jsp:body>
 

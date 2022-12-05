@@ -8,10 +8,15 @@ import java.util.ArrayList;
 public class OrderFacade
 {
 
+    public static void createOrder(int userid, int length, int width, int price, int costPrice, ArrayList<Integer> listOfIDs, ConnectionPool connectionPool) {
+        OrderMapper.createOrder(userid, length, width, price, costPrice, listOfIDs, connectionPool);
+    }
 
     public static void createOrder(int userid, int length, int width, int price, int costPrice, ArrayList<Integer> listOfIDs, ConnectionPool connectionPool) {
         OrderMapper.createOrder(userid, length, width, price, costPrice, listOfIDs, connectionPool);
     }
 
-
+    public static ArrayList<Order> getOrdersFromUserId(int userid, ConnectionPool connectionPool) throws DatabaseException {
+        return OrderMapper.getOrdersFromUserId(userid,connectionPool);
+    }
 }
