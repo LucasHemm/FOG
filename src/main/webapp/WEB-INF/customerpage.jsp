@@ -5,43 +5,53 @@
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-         Velkommen Admin.
+         Kunde ${requestScope.user.name}'s profil.
     </jsp:attribute>
 
     <jsp:body>
 
+
+        <p><b>Name:</b> ${requestScope.user.name} <br/>
+            <b>Email:</b> ${requestScope.user.email}<br/>
+            <b>Adresse:</b> ${requestScope.user.address}, ${sessionScope.user.postalcode} ${sessionScope.user.cityName}
+        </p>
+
+
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>Kunde</th>
-                <th></th>
-                <th>Se ordre</th>
+                <th>Ordre</th>
+                <th>Status</th>
+                <th>Se tegning og stykliste</th>
             </tr>
             </thead>
 
-            <c:forEach var="customer" items="${requestScope.userArrayList}">
+            <c:forEach var="order" items="${requestScope.orderList}">
                 <tr>
                     <td>
                         <p>
-                            <b>ID: </b> ${customer.userid}<br>
-                            <b>Email: </b> ${customer.email}<br>
-                            <b>Navn: </b> ${customer.name}<br>
-                            <b>Dato: </b> ${customer.address}, ${customer.postalcode} ${customer.cityName}
+
+                            <b>Ordre id:</b> ${order.orderid}
+                            <b>Dato:</b> ${order.timestamp}
+
                         </p>
+
                     </td>
+
                     <td>
+                            ${order.status}
                     </td>
+
                     <td>
                         <form>
-                            <button formaction="viewCustomerPage" class="btn btn-primary" formmethod="post" name="userid"
-                                    value="${customer.userid}">Se ordre
+                            <button formaction="viewProfileOrder" class="btn btn-primary" formmethod="post" name="number"
+                                    value="${requestScope.orderList.indexOf(order)}">Se information
                             </button>
                         </form>
                     </td>
                 </tr>
             </c:forEach>
         </table>
-
 
     </jsp:body>
 

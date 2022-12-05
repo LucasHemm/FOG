@@ -1,9 +1,11 @@
 package dat.backend.control;
 
 import dat.backend.model.config.ApplicationStart;
+import dat.backend.model.entities.Order;
 import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
+import dat.backend.model.persistence.OrderFacade;
 import dat.backend.model.persistence.UserFacade;
 
 import javax.servlet.*;
@@ -12,8 +14,8 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet(name = "viewCustomers", value = "/viewCustomers")
-public class ViewCustomers extends HttpServlet {
+@WebServlet(name = "viewCustomerPage", value = "/viewCustomerPage")
+public class ViewCustomerPage extends HttpServlet {
 
     private static ConnectionPool connectionPool = ApplicationStart.getConnectionPool();
 
@@ -26,17 +28,20 @@ public class ViewCustomers extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
-        ArrayList<User> userArrayList = null;
+        int userid = Integer.parseInt(request.getParameter("userid"));
+        ArrayList<Order> orderList= null;
+        User user = null;
 
         try {
-            userArrayList = UserFacade.getAllUsers(connectionPool);
+            orderList = OrderFacade.getOrdersFromUserId(userid,connectionPool);
+            user = UserFacade.getUserFromUserId(userid,connectionPool);
         } catch (DatabaseException e) {
             e.printStackTrace();
         }
 
-        request.setAttribute("userArrayList",userArrayList);
-        request.getRequestDispatcher("WEB-INF/customers.jsp").forward(request, response);
+        request.setAttribute("user",user);
+        request.setAttribute("orderList",orderList);
+        request.getRequestDispatcher("WEB-INF/customerpage.jsp").forward(request, response);
 
 
     }

@@ -37,7 +37,6 @@ public class ViewOrderFromAllOrders extends HttpServlet {
 
         ordersArrayList = (ArrayList<Order>) session.getAttribute("allOrdersList");
         int orderIndex = Integer.parseInt(request.getParameter("orderindex"));
-        System.out.println("Dette er order index på linje 39 i servlet med langt navn" + orderIndex);
         Order order = ordersArrayList.get(orderIndex);
         PartList partList = order.getPartlist();
         ArrayList<Parts> partsArrayList = partList.getPartsArrayList();
