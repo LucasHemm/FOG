@@ -212,7 +212,6 @@ public class Calculator {
     }
 
     public static double roofPanelPrice(int lenght, int width, ConnectionPool connectionPool) {
-        double price = 0;
 
         int partid1 = roofPanelsVariantsid(lenght, connectionPool)[0];
         int partid2 = roofPanelsVariantsid(lenght, connectionPool)[1];
@@ -220,7 +219,7 @@ public class Calculator {
         int length2 = PartFacade.getLengthFromVariantid(partid2, connectionPool);
         int amount = amountOfRoofPanels(width);
 
-        price += PartFacade.pricePrMeter(length1, 6, connectionPool) * amount;
+        double price = PartFacade.pricePrMeter(length1, 6, connectionPool) * amount;
         price += PartFacade.pricePrMeter(length2, 6, connectionPool) * amount;
 
         return price;
@@ -317,7 +316,7 @@ public class Calculator {
         price += beamCostPrice(length, connectionPool);
         price += screwCostPrice(connectionPool);
         price += roofScrewCostPrice(connectionPool);
-        price += roofPanelCostPrice(length, width,connectionPool);
+        price += roofPanelCostPrice(length, width, connectionPool);
         price += boltCostPrice(length, connectionPool);
         price += discCostPrice(length, connectionPool);
         return price;
@@ -381,11 +380,11 @@ public class Calculator {
         return listOfPartAmounts;
     }
 
-    public static ArrayList<Integer> listOfIDs(int length, int width, ConnectionPool connectionPool){
+    public static ArrayList<Integer> listOfIDs(int length, int width, ConnectionPool connectionPool) {
         ArrayList<Integer> listOfIDs = new ArrayList<>();
         listOfIDs.add(postid(connectionPool));
         listOfIDs.add(rafterVariantID(width, connectionPool));
-        listOfIDs.add(beamVariantsid(length,connectionPool)[0]);
+        listOfIDs.add(beamVariantsid(length, connectionPool)[0]);
         if (beamVariantsid(length, connectionPool)[1] != 0) {
             listOfIDs.add(beamVariantsid(length, connectionPool)[1]);
         }
