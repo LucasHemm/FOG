@@ -71,7 +71,9 @@ class OrderMapper
                     partsArrayList.add(beam1);
                     int beam2id = rs.getInt("beam2id");
                     Parts beam2 = OrderMapper.createPartsFromPartVariantId(beam2id,connectionPool);
-                    partsArrayList.add(beam2);
+                    if(beam2 != null) {
+                        partsArrayList.add(beam2);
+                    }
                     int screwid = rs.getInt("screwid");
                     Parts screw = OrderMapper.createPartsFromPartVariantId(screwid,connectionPool);
                     partsArrayList.add(screw);
@@ -83,7 +85,9 @@ class OrderMapper
                     partsArrayList.add(roof1);
                     int roof2id = rs.getInt("roof2id");
                     Parts roof2 = OrderMapper.createPartsFromPartVariantId(roof2id,connectionPool);
-                    partsArrayList.add(roof2);
+                    if(roof2 != null){
+                        partsArrayList.add(roof2);
+                    }
                     int boltid = rs.getInt("boltid");
                     Parts bolt = OrderMapper.createPartsFromPartVariantId(boltid,connectionPool);
                     partsArrayList.add(bolt);

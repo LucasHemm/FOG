@@ -17,7 +17,7 @@
         <h2><b>Bredde: </b>${requestScope.partList.width} cm.</h2>
 
         <h5></h5>
-        <table class="table table-striped">
+        <table class="table table-striped table-bordered">
             <thead>
             <tr>
                 <th>Beskrivelse</th>
