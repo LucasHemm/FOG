@@ -341,7 +341,7 @@ public class Calculator {
     }
 
 
-    //Lists/Maps of amount of each part
+    //Lists of amount and/or IDs of each part
 
     public static ArrayList<Integer> listOfPartAmounts(int length, int width, ConnectionPool connectionPool) {
         ArrayList<Integer> listOfPartAmounts = new ArrayList<>();
