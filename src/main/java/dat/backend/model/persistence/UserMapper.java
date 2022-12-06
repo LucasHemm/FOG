@@ -58,13 +58,16 @@ class UserMapper
 
         int id = 0;
         User user = null;
-        String sql = "insert into users (email, name, password, addressid) values (?,?,?,?)";
 
-        int addressid = insertUserAddress(streetName, postalcode, connectionPool);
+        String sql = "insert into users (email, name, password, addressid) values (?,?,?,?)";
+        System.out.println(email + name + password + postalcode + cityName + streetName);
+
         boolean check = checkForPostalCode(postalcode, connectionPool);
-        if (check) {
+        if (!check) {
             insertIntoPostalCode(postalcode, cityName, connectionPool);
         }
+        int addressid = insertUserAddress(streetName, postalcode, connectionPool);
+
         try (Connection connection = connectionPool.getConnection()) {
 
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
@@ -110,7 +113,6 @@ class UserMapper
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
     }
 
     private static int insertUserAddress(String streetname, int postalcode, ConnectionPool connectionPool) {
@@ -140,21 +142,16 @@ class UserMapper
 
     private static Boolean checkForPostalCode(int DBpostal, ConnectionPool connectionPool) {
 
-        String sql = "SELECT * FROM postalcodes";
+        String sql = "SELECT * FROM postalcodes where postalcode = "+DBpostal;
 
         try (Connection connection = connectionPool.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(sql);
 
             ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return  true;
+            }
 
-            ArrayList<Integer> userArrayList = new ArrayList<>();
-            while (rs.next()) {
-                int postalcode = rs.getInt("postalcode");
-                userArrayList.add(postalcode);
-            }
-            if (userArrayList.contains(DBpostal)) {
-                return true;
-            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
