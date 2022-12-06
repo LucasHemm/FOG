@@ -20,6 +20,7 @@
             </thead>
 
             <c:forEach var="customer" items="${requestScope.userArrayList}">
+                <c:if test="${customer.admin != true}">
                 <tr>
                     <td>
                         <p>
@@ -39,6 +40,7 @@
                         </form>
                     </td>
                 </tr>
+                </c:if>
             </c:forEach>
         </table>
 

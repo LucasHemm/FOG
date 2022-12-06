@@ -165,7 +165,7 @@ class UserMapper
 
         String cityName = null;
 
-        String sql = "SELECT * FROM addresses WHERE postalcode = ?";
+        String sql = "SELECT * FROM postalcodes WHERE postalcode = ?";
 
         try (Connection connection = connectionPool.getConnection())
         {
@@ -184,7 +184,7 @@ class UserMapper
             }
         } catch (SQLException ex)
         {
-            throw new DatabaseException(ex, "Error logging in. Something went wrong with the database");
+            throw new DatabaseException(ex, "Error logging in. Something went wrong in getCity");
         }
         return cityName;
     }
@@ -212,7 +212,7 @@ class UserMapper
             }
         } catch (SQLException ex)
         {
-            throw new DatabaseException(ex, "Error logging in. Something went wrong with the database");
+            throw new DatabaseException(ex, "Error logging in. Something went wrong in getAddress");
         }
         return address;
     }
@@ -240,7 +240,7 @@ class UserMapper
             }
         } catch (SQLException ex)
         {
-            throw new DatabaseException(ex, "Error logging in. Something went wrong with the database");
+            throw new DatabaseException(ex, "Error logging in. Something went wrong in getPostalcode");
         }
         return postalcode;
     }
@@ -299,7 +299,7 @@ class UserMapper
             try (PreparedStatement ps = connection.prepareStatement(sql))
             {
                 ResultSet rs = ps.executeQuery();
-                if (rs.next())
+                while (rs.next())
                 {
                     int userid = rs.getInt("iduser");
                     String email = rs.getString("email");
@@ -314,9 +314,6 @@ class UserMapper
                     user = new User(userid,email,name,password,address,postalcode,cityname,isadmin);
                     userArrayList.add(user);
                     System.out.println(user);
-                } else
-                {
-                    throw new DatabaseException("Wrong username or password");
                 }
             }
         } catch (SQLException ex)
