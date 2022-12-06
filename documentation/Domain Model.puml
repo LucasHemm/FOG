@@ -1,0 +1,53 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+'Classes'
+class User
+class Order
+class Partslist
+class Parts
+class Calculator
+
+'Facade & Mapper'
+class UserMapper
+class UserFacade
+class OrderMapper
+class OrderFacade
+class PartsMapper
+class PartsFacade
+
+'Relations'
+User "1" *-- "0..*" Order
+Order "1" *-- "1" Partslist
+Partslist "1" *-- "1..*" Parts
+Partslist -- Calculator
+
+User -- UserFacade
+UserFacade -- UserMapper
+
+Order -- OrderFacade
+OrderFacade -- OrderMapper
+
+Parts -- PartsFacade
+PartsFacade -- PartsMapper
+
+'SERVLETS'
+'All users'
+class Login
+class Logout
+
+'User'
+class ViewProfile
+class ViewOrder
+class CreateRequest
+class Pay
+
+'Admin'
+class ViewCustomers
+class ViewAllRequests
+class ViewCustomerReq
+class ConfirmReq
+class DeleteReq
+class UpdatePrice
+
+@enduml
