@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 class UserMapper
 {
+
     static User login(String email, String password, ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "");
@@ -59,9 +60,11 @@ class UserMapper
         User user = null;
         String sql = "insert into users (email, name, password, addressid) values (?,?,?,?)";
 
-        insertIntoPostalCode(postalcode, cityName, connectionPool);
         int addressid = insertUserAddress(streetName, postalcode, connectionPool);
-        //checkForPostalCode(postalcode, connectionPool);
+        boolean check = checkForPostalCode(postalcode, connectionPool);
+        if (check) {
+            insertIntoPostalCode(postalcode, cityName, connectionPool);
+        }
         try (Connection connection = connectionPool.getConnection()) {
 
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
@@ -110,7 +113,7 @@ class UserMapper
 
     }
 
-    private static int insertUserAddress(String streetname, int postalcode, ConnectionPool connectionPool) throws DatabaseException{
+    private static int insertUserAddress(String streetname, int postalcode, ConnectionPool connectionPool) {
         Logger.getLogger("web").log(Level.INFO, "");
 
         int addressid = 0;
@@ -135,7 +138,7 @@ class UserMapper
 
     }
 
-    private void checkForPostalCode(ConnectionPool connectionPool) {
+    private static Boolean checkForPostalCode(int DBpostal, ConnectionPool connectionPool) {
 
         String sql = "SELECT * FROM postalcodes";
 
@@ -144,23 +147,19 @@ class UserMapper
 
             ResultSet rs = ps.executeQuery();
 
-            ArrayList<Integer> arrayList = new ArrayList<>();
+            ArrayList<Integer> userArrayList = new ArrayList<>();
             while (rs.next()) {
-                // ......
+                int postalcode = rs.getInt("postalcode");
+                userArrayList.add(postalcode);
+            }
+            if (userArrayList.contains(DBpostal)) {
+                return true;
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        return false;
 
-//        try (Connection connection = connectionPool.getConnection()){
-//            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-//            preparedStatement.setInt(1, postalcode);
-//            ResultSet rs = preparedStatement.executeQuery(sql);
-//
-//            rs.next();
-//        } catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//        }
     }
 
 
