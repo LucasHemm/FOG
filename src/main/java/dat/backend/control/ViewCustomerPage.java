@@ -39,6 +39,13 @@ public class ViewCustomerPage extends HttpServlet {
             e.printStackTrace();
         }
 
+        ArrayList<String> statusList = new ArrayList<>();
+        statusList.add("Skal slettes");
+        statusList.add("Ikke godkendt");
+        statusList.add("Godkendt");
+        statusList.add("Betalt");
+
+        request.setAttribute("statuslist",statusList);
         request.setAttribute("user",user);
         request.setAttribute("orderList",orderList);
         request.getRequestDispatcher("WEB-INF/customerpage.jsp").forward(request, response);

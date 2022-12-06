@@ -31,4 +31,11 @@ public class OrderFacade
         OrderMapper.deleteOrderFromOrderId(orderid,connectionPool);
 
     }
+
+    public static void changeStatus(int orderid,String status, ConnectionPool connectionPool) throws DatabaseException{
+
+        OrderMapper.changeStatus(orderid,status,connectionPool);
+
+    }
+
 }

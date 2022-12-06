@@ -341,5 +341,19 @@ class OrderMapper {
         }
         return partlistid;
     }
+    static void changeStatus(int orderid, String status, ConnectionPool connectionPool) throws DatabaseException {
+        String sql = "update orders set status = ? where idorders=?;";
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+                ps.setString(1, status);
+                ps.setInt(2, orderid);
+                ps.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Could not add money into database");
+        }
+    }
 
 }
