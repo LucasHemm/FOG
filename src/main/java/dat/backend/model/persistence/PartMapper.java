@@ -267,13 +267,14 @@ class PartMapper {
     private static void addPartToPartList(String name, ConnectionPool connectionPool) throws DatabaseException {
 
         String columnName = name + "id";
+        String thirdToLastColumn = getColumnNameFromOrdinalPosition(connectionPool);
 
         String sql1 = "SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0";
         String sql2 = "SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0";
         String sql3 = "SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION'";
 
         String sql4 = "ALTER TABLE `fog`.`partslists` \n" +
-                "ADD COLUMN `" + columnName + "` INT(11) NOT NULL AFTER `discid`";
+                "ADD COLUMN `" + columnName + "` INT(11) NOT NULL AFTER `"+thirdToLastColumn+"`";
 
         String sql5 = "ALTER TABLE `fog`.`partslists` \n" +
                 "ADD CONSTRAINT `" + columnName + "`\n" +
@@ -340,4 +341,50 @@ class PartMapper {
             throwables.printStackTrace();
         }
     }
+
+    private static int getOrdinalPosition(ConnectionPool connectionPool) throws DatabaseException {
+        int ordinalPosition = 0;
+        String sql = "SELECT \n" +
+                "COLUMN_NAME,\n" +
+                "ORDINAL_POSITION\n" +
+                "FROM information_schema.COLUMNS \n" +
+                "WHERE TABLE_SCHEMA = 'fog'\n" +
+                "AND TABLE_NAME ='partslists'\n" +
+                "ORDER BY ORDINAL_POSITION DESC \n" +
+                "LIMIT 1;";
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    ordinalPosition = rs.getInt("ORDINAL_POSITION")-2;
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Could not find ordinal position");
+        }
+        return ordinalPosition;
+    }
+
+    private static String getColumnNameFromOrdinalPosition(ConnectionPool connectionPool) throws DatabaseException {
+        String columnName = "";
+        int ordinalPosition = getOrdinalPosition(connectionPool);
+        String sql = "SELECT \n" +
+                "COLUMN_NAME\n" +
+                "FROM information_schema.COLUMNS \n" +
+                "WHERE TABLE_SCHEMA = 'fog'\n" +
+                "AND TABLE_NAME ='partslists'\n" +
+                "AND ORDINAL_POSITION = "+ordinalPosition;
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    columnName = rs.getString("COLUMN_NAME");
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Could not find column name");
+        }
+        return columnName;
+    }
+
 }

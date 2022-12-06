@@ -286,7 +286,7 @@ class OrderMapper {
 
     public static void deleteOrderFromOrderId(int orderid, ConnectionPool connectionPool) throws DatabaseException {
 
-        int partlistid = getPartListIdFromOrderId(orderid,connectionPool);
+        int partlistid = getPartListIdFromOrderId(orderid, connectionPool);
         String sql = "delete from orders where idorders = ?";
 
         try (Connection connection = connectionPool.getConnection()) {
@@ -302,7 +302,7 @@ class OrderMapper {
 
     }
 
-    public static void deletePartlistFromPartlistId(int partlistid, ConnectionPool connectionPool){
+    public static void deletePartlistFromPartlistId(int partlistid, ConnectionPool connectionPool) {
 
 
         String sql = "delete from partslists where idpartslists = ?";
@@ -341,6 +341,7 @@ class OrderMapper {
         }
         return partlistid;
     }
+
     static void changeStatus(int orderid, String status, ConnectionPool connectionPool) throws DatabaseException {
         String sql = "update orders set status = ? where idorders=?;";
 
@@ -355,5 +356,4 @@ class OrderMapper {
             throw new DatabaseException(ex, "Could not add money into database");
         }
     }
-
 }

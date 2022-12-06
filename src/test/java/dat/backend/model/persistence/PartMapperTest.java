@@ -15,11 +15,27 @@ class PartMapperTest {
 
     @Test
     void newPartInitializer() {
+
         try {
-            PartFacade.newPartInitializer("Part2 blah3",100,60,"blah3", "blah3", "blah3", "blah3","nameblah3",300,660,connectionPool);
+            PartFacade.newPartInitializer("hulbånd 1x20 mm. 10 mtr.",297,199,"Til vindkryds på spær", "HollowBand", "Stk", "Stk","hollowband",0,0,connectionPool);
         } catch (DatabaseException e) {
             e.printStackTrace();
         }
+
+
+        try {
+            PartFacade.newPartInitializer("universal 190 mm højre",32,23,"Til montering af spær på rem", "RightFitting", "Stk", "Stk","rightfitting",0,0,connectionPool);
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            PartFacade.newPartInitializer("universal 190 mm venstre",32,23,"Til montering af spær på rem", "LeftFitting", "Stk", "Stk","leftfitting",0,0,connectionPool);
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     @Test

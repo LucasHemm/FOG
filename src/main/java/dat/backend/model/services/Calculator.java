@@ -289,6 +289,58 @@ public class Calculator {
     }
 
 
+    //9 is hardcoded in methods since we don't choose between different hollow band on our site
+    //Amount of hollow bands is always 2
+    private static int bandAmount = 2;
+
+    public static int bandid(ConnectionPool connectionPool) {
+        return PartFacade.variantidFromPartid(9, connectionPool);
+    }
+
+    private static double bandPrice(ConnectionPool connectionPool) {
+        return PartFacade.PricePrAmount(9, connectionPool) * bandAmount;
+    }
+
+    private static double bandCostPrice( ConnectionPool connectionPool) {
+        return PartFacade.costPricePrAmount(9, connectionPool) * bandAmount;
+    }
+
+
+    //10 is hardcoded in methods since we don't choose between different right fittings on our site
+    public static int rightFittingid(ConnectionPool connectionPool) {
+        return PartFacade.variantidFromPartid(10, connectionPool);
+    }
+
+    public static int amountOfRightFittings(double length) {
+        return amountOfRafters(length);
+    }
+
+    private static double rightFittingsPrice(int length, ConnectionPool connectionPool) {
+        return PartFacade.PricePrAmount(10, connectionPool) * amountOfDiscs(length);
+    }
+
+    private static double rightFittingsCostPrice(int length, ConnectionPool connectionPool) {
+        return PartFacade.costPricePrAmount(10, connectionPool) * amountOfDiscs(length);
+    }
+
+    //11 is hardcoded in methods since we don't choose between different left fittings on our site
+    public static int leftFittingid(ConnectionPool connectionPool) {
+        return PartFacade.variantidFromPartid(11, connectionPool);
+    }
+
+    public static int amountOfLeftFittings(double length) {
+        return amountOfRafters(length);
+    }
+
+    private static double leftFittingsPrice(int length, ConnectionPool connectionPool) {
+        return PartFacade.PricePrAmount(11, connectionPool) * amountOfDiscs(length);
+    }
+
+    private static double leftFittingsCostPrice(int length, ConnectionPool connectionPool) {
+        return PartFacade.costPricePrAmount(11, connectionPool) * amountOfDiscs(length);
+    }
+
+
     //Calculations for totalprices
 
 
@@ -302,6 +354,8 @@ public class Calculator {
         price += roofPanelPrice(length, width, connectionPool);
         price += boltPrice(length, connectionPool);
         price += discPrice(length, connectionPool);
+        price += bandPrice(connectionPool);
+        price += rightFittingsPrice(length,connectionPool);
         return price;
     }
 
@@ -319,6 +373,8 @@ public class Calculator {
         price += roofPanelCostPrice(length, width, connectionPool);
         price += boltCostPrice(length, connectionPool);
         price += discCostPrice(length, connectionPool);
+        price += bandCostPrice(connectionPool);
+        price += rightFittingsCostPrice(length,connectionPool);
         return price;
     }
 
@@ -375,7 +431,15 @@ public class Calculator {
         }
         //Amount of bolts
         listOfPartAmounts.add(amountOfBolts(length, connectionPool));
+        //Amount of discs
         listOfPartAmounts.add(amountOfDiscs(length));
+        //Amount of hollow bands
+        listOfPartAmounts.add(bandAmount);
+        //Amount of right fittings
+        listOfPartAmounts.add(amountOfRightFittings(length));
+        //Amount of left fittings
+        listOfPartAmounts.add(amountOfLeftFittings(length));
+
 
         return listOfPartAmounts;
     }
@@ -404,6 +468,9 @@ public class Calculator {
         }
         listOfIDs.add(boltid(connectionPool));
         listOfIDs.add(discid(connectionPool));
+        listOfIDs.add(bandid(connectionPool));
+        listOfIDs.add(rightFittingid(connectionPool));
+        listOfIDs.add(leftFittingid(connectionPool));
 
         return listOfIDs;
     }
