@@ -12,12 +12,21 @@ public class PartList {
     private int rafterid;
     private int beam1id;
     private int beam2id;
+    private int screwid;
+    private int roofscrewid;
+    private int roof1id;
+    private int roof2id;
+    private int boltid;
+    private int discid;
+
+
+
     private int costprice;
     private int totalprice;
-    private ArrayList<Parts> partsArrayList = new ArrayList<>();
+    private ArrayList<Parts> partsArrayList;
 
 
-    public PartList(int partlistid, int length, int width, int postid, int rafterid, int beam1id, int beam2id, int costprice, int totalprice) {
+    public PartList(int partlistid, int length, int width, int postid, int rafterid, int beam1id, int beam2id, int screwid, int roofscrewid, int roof1id, int roof2id, int boltid, int discid, int costprice, int totalprice, ArrayList<Parts> partsArrayList) {
         this.partlistid = partlistid;
         this.length = length;
         this.width = width;
@@ -25,9 +34,63 @@ public class PartList {
         this.rafterid = rafterid;
         this.beam1id = beam1id;
         this.beam2id = beam2id;
+        this.screwid = screwid;
+        this.roofscrewid = roofscrewid;
+        this.roof1id = roof1id;
+        this.roof2id = roof2id;
+        this.boltid = boltid;
+        this.discid = discid;
         this.costprice = costprice;
         this.totalprice = totalprice;
+        this.partsArrayList = partsArrayList;
+    }
 
+    public int getRoof1id() {
+        return roof1id;
+    }
+
+    public int getRoof2id() {
+        return roof2id;
+    }
+
+    public void setRoof2id(int roof2id) {
+        this.roof2id = roof2id;
+    }
+
+    public void setRoof1id(int roof1id) {
+        this.roof1id = roof1id;
+    }
+
+    public int getScrewid() {
+        return screwid;
+    }
+
+    public void setScrewid(int screwid) {
+        this.screwid = screwid;
+    }
+
+    public int getRoofscrewid() {
+        return roofscrewid;
+    }
+
+    public void setRoofscrewid(int roofscrewid) {
+        this.roofscrewid = roofscrewid;
+    }
+
+    public int getBoltid() {
+        return boltid;
+    }
+
+    public void setBoltid(int boltid) {
+        this.boltid = boltid;
+    }
+
+    public int getDiscid() {
+        return discid;
+    }
+
+    public void setDiscid(int discid) {
+        this.discid = discid;
     }
 
     public int getPartlistid() {

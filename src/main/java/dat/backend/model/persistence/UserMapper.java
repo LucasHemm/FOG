@@ -249,4 +249,83 @@ class UserMapper
     }
 
 
+    public static User getUserFromUserId(int userid, ConnectionPool connectionPool) throws DatabaseException {
+
+        Logger.getLogger("web").log(Level.INFO, "");
+
+        User user = null;
+
+        String sql = "SELECT * FROM users WHERE iduser = ?";
+
+        try (Connection connection = connectionPool.getConnection())
+        {
+            try (PreparedStatement ps = connection.prepareStatement(sql))
+            {
+                ps.setInt(1, userid);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next())
+                {
+                    String name = rs.getString("name");
+                    String email = rs.getString("email");
+                    String password = rs.getString("password");
+                    int addressid = rs.getInt("addressid");
+                    String address = getAddressFromAddressid(addressid,connectionPool);
+                    int postalcode = getPostalCodeFromAddressid(addressid,connectionPool);
+                    String cityname = getCityNameFromPostalCode(postalcode,connectionPool);
+                    boolean isadmin = rs.getBoolean("isadmin");
+
+                    user = new User(userid,email,name,password,address,postalcode,cityname,isadmin);
+                    System.out.println(user);
+                } else
+                {
+                    throw new DatabaseException("Wrong username or password");
+                }
+            }
+        } catch (SQLException ex)
+        {
+            throw new DatabaseException(ex, "Error logging in. Something went wrong with the database");
+        }
+        return user;
+    }
+
+    public static ArrayList<User> getAllUsers(ConnectionPool connectionPool) throws DatabaseException {
+
+        Logger.getLogger("web").log(Level.INFO, "");
+
+        User user = null;
+        ArrayList<User> userArrayList = new ArrayList<>();
+
+        String sql = "SELECT * FROM users";
+
+        try (Connection connection = connectionPool.getConnection())
+        {
+            try (PreparedStatement ps = connection.prepareStatement(sql))
+            {
+                ResultSet rs = ps.executeQuery();
+                if (rs.next())
+                {
+                    int userid = rs.getInt("iduser");
+                    String email = rs.getString("email");
+                    String name = rs.getString("name");
+                    String password = rs.getString("password");
+                    int addressid = rs.getInt("addressid");
+                    String address = getAddressFromAddressid(addressid,connectionPool);
+                    int postalcode = getPostalCodeFromAddressid(addressid,connectionPool);
+                    String cityname = getCityNameFromPostalCode(postalcode,connectionPool);
+                    boolean isadmin = rs.getBoolean("isadmin");
+
+                    user = new User(userid,email,name,password,address,postalcode,cityname,isadmin);
+                    userArrayList.add(user);
+                    System.out.println(user);
+                } else
+                {
+                    throw new DatabaseException("Wrong username or password");
+                }
+            }
+        } catch (SQLException ex)
+        {
+            throw new DatabaseException(ex, "Error logging in. Something went wrong with the database");
+        }
+        return userArrayList;
+    }
 }

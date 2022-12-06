@@ -2,28 +2,49 @@ package dat.backend.model.entities;
 
 public class Parts {
 
-    String description;
+    String part_Description;
     int pricePrUnit;
     int costPricePrUnit;
-    String usage;
-    String type;
+    String part_Usage;
+    String part_Type;
     String unit;
-    String partLength;
+    String priceUnit;
+    int partLength;
 
-    public Parts(String description, int pricePrUnit, int costPricePrUnit, String usage) {
-        this.description = description;
+
+    public Parts(String part_Description, int pricePrUnit, int costPricePrUnit, String part_Usage, String part_Type, String unit,String priceUnit, int partLength) {
+        this.part_Description = part_Description;
         this.pricePrUnit = pricePrUnit;
         this.costPricePrUnit = costPricePrUnit;
-        this.usage = usage;
+        this.part_Usage = part_Usage;
+        this.part_Type = part_Type;
+        this.unit = unit;
+        this.priceUnit = priceUnit;
+        this.partLength = partLength;
     }
 
-
-    public String getDescription() {
-        return description;
+    public String getPart_Description() {
+        return part_Description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setPart_Description(String part_Description) {
+        this.part_Description = part_Description;
+    }
+
+    public String getPart_Usage() {
+        return part_Usage;
+    }
+
+    public void setPart_Usage(String part_Usage) {
+        this.part_Usage = part_Usage;
+    }
+
+    public String getPart_Type() {
+        return part_Type;
+    }
+
+    public void setPart_Type(String part_Type) {
+        this.part_Type = part_Type;
     }
 
     public int getPricePrUnit() {
@@ -42,21 +63,7 @@ public class Parts {
         this.costPricePrUnit = costPricePrUnit;
     }
 
-    public String getUsage() {
-        return usage;
-    }
 
-    public void setUsage(String usage) {
-        this.usage = usage;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     public String getUnit() {
         return unit;
@@ -66,11 +73,11 @@ public class Parts {
         this.unit = unit;
     }
 
-    public String getPartLength() {
+    public int getPartLength() {
         return partLength;
     }
 
-    public void setPartLength(String partLength) {
+    public void setPartLength(int partLength) {
         this.partLength = partLength;
     }
 }
