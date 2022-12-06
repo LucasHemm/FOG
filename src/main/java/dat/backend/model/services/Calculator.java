@@ -249,7 +249,7 @@ public class Calculator {
     }
 
     public static int amountOfBolts(int length, ConnectionPool connectionPool) {
-        int amount = amountOfPosts(length);
+        int amount = amountOfPosts(length) + 1;
 
         int[] arr = beamVariantsid(length, connectionPool);
 

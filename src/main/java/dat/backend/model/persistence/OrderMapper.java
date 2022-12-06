@@ -283,4 +283,63 @@ class OrderMapper {
         }
         return order;
     }
+
+    public static void deleteOrderFromOrderId(int orderid, ConnectionPool connectionPool) throws DatabaseException {
+
+        int partlistid = getPartListIdFromOrderId(orderid,connectionPool);
+        String sql = "delete from orders where idorders = ?";
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, orderid);
+                ps.executeUpdate();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        System.out.println("PARTLIST ID " + partlistid);
+        deletePartlistFromPartlistId(partlistid, connectionPool);
+
+    }
+
+    public static void deletePartlistFromPartlistId(int partlistid, ConnectionPool connectionPool){
+
+
+        String sql = "delete from partslists where idpartslists = ?";
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, partlistid);
+                ps.executeUpdate();
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
+
+    private static int getPartListIdFromOrderId(int orderid, ConnectionPool connectionPool) throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO, "");
+
+        int partlistid = 0;
+
+        String sql = "SELECT * from orders where idorders=?";
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, orderid);
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    partlistid = rs.getInt("partlistid");
+
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "No users were found");
+        }
+        return partlistid;
+    }
+
 }

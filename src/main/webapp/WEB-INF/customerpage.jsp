@@ -47,6 +47,10 @@
                             <button formaction="viewCustomerOrder" class="btn btn-primary" formmethod="post" name="orderid"
                                     value="${order.orderid}">Se information
                             </button>
+                            <button formaction="deleteOrder" class="btn btn-danger" formmethod="post" name="orderid"
+                                    value="${order.orderid}">Slet
+                            </button>
+                            <input type="hidden" id="userid" name="userid" value="${requestScope.user.userid}">
                         </form>
                     </td>
                 </tr>
