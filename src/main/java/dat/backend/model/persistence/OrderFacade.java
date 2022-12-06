@@ -26,4 +26,9 @@ public class OrderFacade
     }
 
 
+    public static void deleteOrderFromOrderId(int orderid, ConnectionPool connectionPool) throws DatabaseException{
+
+        OrderMapper.deleteOrderFromOrderId(orderid,connectionPool);
+
+    }
 }
