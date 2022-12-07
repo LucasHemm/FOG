@@ -9,6 +9,7 @@ public class Order {
     private Timestamp timestamp;
     private PartList partlist;
     private String status;
+    private double proposedPrice;
 
     public Order(int orderid, int userid, Timestamp timestamp, PartList partlist, String status) {
         this.orderid = orderid;
@@ -16,6 +17,14 @@ public class Order {
         this.timestamp = timestamp;
         this.partlist = partlist;
         this.status = status;
+    }
+
+    public double getProposedPrice() {
+        return proposedPrice;
+    }
+
+    public void setProposedPrice(double proposedPrice) {
+        this.proposedPrice = proposedPrice;
     }
 
     public String getStatus() {

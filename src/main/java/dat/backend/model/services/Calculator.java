@@ -289,26 +289,26 @@ public class Calculator {
     }
 
 
-    //9 is hardcoded in methods since we don't choose between different hollow band on our site
+    //10 is hardcoded in methods since we don't choose between different hollow band on our site
     //Amount of hollow bands is always 2
     private static int bandAmount = 2;
 
     public static int bandid(ConnectionPool connectionPool) {
-        return PartFacade.variantidFromPartid(9, connectionPool);
+        return PartFacade.variantidFromPartid(10, connectionPool);
     }
 
     private static double bandPrice(ConnectionPool connectionPool) {
-        return PartFacade.PricePrAmount(9, connectionPool) * bandAmount;
+        return PartFacade.PricePrAmount(10, connectionPool) * bandAmount;
     }
 
     private static double bandCostPrice( ConnectionPool connectionPool) {
-        return PartFacade.costPricePrAmount(9, connectionPool) * bandAmount;
+        return PartFacade.costPricePrAmount(10, connectionPool) * bandAmount;
     }
 
 
-    //10 is hardcoded in methods since we don't choose between different right fittings on our site
+    //11 is hardcoded in methods since we don't choose between different right fittings on our site
     public static int rightFittingid(ConnectionPool connectionPool) {
-        return PartFacade.variantidFromPartid(10, connectionPool);
+        return PartFacade.variantidFromPartid(11, connectionPool);
     }
 
     public static int amountOfRightFittings(double length) {
@@ -316,16 +316,16 @@ public class Calculator {
     }
 
     private static double rightFittingsPrice(int length, ConnectionPool connectionPool) {
-        return PartFacade.PricePrAmount(10, connectionPool) * amountOfDiscs(length);
+        return PartFacade.PricePrAmount(11, connectionPool) * amountOfDiscs(length);
     }
 
     private static double rightFittingsCostPrice(int length, ConnectionPool connectionPool) {
-        return PartFacade.costPricePrAmount(10, connectionPool) * amountOfDiscs(length);
+        return PartFacade.costPricePrAmount(11, connectionPool) * amountOfDiscs(length);
     }
 
-    //11 is hardcoded in methods since we don't choose between different left fittings on our site
+    //12 is hardcoded in methods since we don't choose between different left fittings on our site
     public static int leftFittingid(ConnectionPool connectionPool) {
-        return PartFacade.variantidFromPartid(11, connectionPool);
+        return PartFacade.variantidFromPartid(12, connectionPool);
     }
 
     public static int amountOfLeftFittings(double length) {
@@ -333,11 +333,11 @@ public class Calculator {
     }
 
     private static double leftFittingsPrice(int length, ConnectionPool connectionPool) {
-        return PartFacade.PricePrAmount(11, connectionPool) * amountOfDiscs(length);
+        return PartFacade.PricePrAmount(12, connectionPool) * amountOfDiscs(length);
     }
 
     private static double leftFittingsCostPrice(int length, ConnectionPool connectionPool) {
-        return PartFacade.costPricePrAmount(11, connectionPool) * amountOfDiscs(length);
+        return PartFacade.costPricePrAmount(12, connectionPool) * amountOfDiscs(length);
     }
 
 

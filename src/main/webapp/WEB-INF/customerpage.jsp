@@ -24,6 +24,8 @@
                 <th>Status</th>
                 <th>Se tegning og stykliste</th>
                 <th>Ordre status</th>
+                <th>Dækningsgrad efter prisforslag</th>
+                <th>Pris og prisforslag</th>
             </tr>
             </thead>
 
@@ -32,7 +34,7 @@
                     <td>
                         <p>
 
-                            <b>Ordre id:</b> ${order.orderid}
+                            <b>Ordre id:</b> ${order.orderid}<br>
                             <b>Dato:</b> ${order.timestamp}
 
                         </p>
@@ -71,6 +73,24 @@
                             <button type="submit" class="btn btn-success">Gem status</button>
                         </form>
                     </td>
+                    <td>
+                        Ialt uden moms: ${Math.round(order.partlist.totalprice*0.8)} kr.<br/>
+                        Samlet kostpris: ${order.partlist.costprice} kr. <br/>
+                        Dækningsgrad: ${Math.round((order.partlist.totalprice*0.8/order.partlist.costprice)*100-100)} %.
+                    </td>
+
+                    <td>
+                        <form action="updatePrice" method="post">
+                            Forslået pris: ${Math.round(order.proposedPrice)}kr. <br>
+                            Salgspris: ${order.partlist.totalprice}kr. <br>
+                            <label for="newprice">Prisforslag: </label><br>
+                            <input type="number" id="newprice" name="newprice" style="width: 7em"/> kr.
+                            <button type="submit" class="btn btn-success">Opdater</button>
+                            <input type="hidden" id="orderid2" name="orderid2" value="${order.orderid}">
+                            <input type="hidden" id="userid2" name="userid2" value="${requestScope.user.userid}">
+                        </form>
+                    </td>
+
                 </tr>
             </c:forEach>
         </table>

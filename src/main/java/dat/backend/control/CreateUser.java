@@ -5,6 +5,7 @@ import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.UserFacade;
+import dat.backend.model.services.CheckString;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -34,6 +35,8 @@ public class CreateUser extends HttpServlet {
         String password = request.getParameter("password1");
         String password2 = request.getParameter("password2");
 
+
+
         if (!password.equals(password2)) {
             String msg2 = "De angivne koder er forskellige, prøv igen";
             request.setAttribute("msg2", msg2);
@@ -45,7 +48,7 @@ public class CreateUser extends HttpServlet {
         //int id = Integer.parseInt((request.getParameter("userid")));
         String name = request.getParameter("name");
         String email = request.getParameter("email");
-        int postalcode = Integer.parseInt((request.getParameter("postalcode")));
+        int postalcode = CheckString.stringToInt(request.getParameter("postalcode"));
         String cityName = request.getParameter("city");
         String streetName = request.getParameter("address");
 

@@ -38,4 +38,7 @@ public class OrderFacade
 
     }
 
+    public static void updatePrice(int partlistid, int newprice, ConnectionPool connectionPool) throws DatabaseException {
+        OrderMapper.updatePrice(partlistid,newprice,connectionPool);
+    }
 }

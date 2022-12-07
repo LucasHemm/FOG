@@ -18,6 +18,9 @@ public class PartList {
     private int roof2id;
     private int boltid;
     private int discid;
+    private int hollowbandid;
+    private int rightfittingid;
+    private int leftfittingid;
 
 
 
@@ -26,7 +29,7 @@ public class PartList {
     private ArrayList<Parts> partsArrayList;
 
 
-    public PartList(int partlistid, int length, int width, int postid, int rafterid, int beam1id, int beam2id, int screwid, int roofscrewid, int roof1id, int roof2id, int boltid, int discid, int costprice, int totalprice, ArrayList<Parts> partsArrayList) {
+    public PartList(int partlistid, int length, int width, int postid, int rafterid, int beam1id, int beam2id, int screwid, int roofscrewid, int roof1id, int roof2id, int boltid, int discid, int hollowbandid, int rightfittingid, int leftfittingid, int costprice, int totalprice, ArrayList<Parts> partsArrayList) {
         this.partlistid = partlistid;
         this.length = length;
         this.width = width;
@@ -40,9 +43,36 @@ public class PartList {
         this.roof2id = roof2id;
         this.boltid = boltid;
         this.discid = discid;
+        this.hollowbandid = hollowbandid;
+        this.rightfittingid = rightfittingid;
+        this.leftfittingid = leftfittingid;
         this.costprice = costprice;
         this.totalprice = totalprice;
         this.partsArrayList = partsArrayList;
+    }
+
+    public int getHollowbandid() {
+        return hollowbandid;
+    }
+
+    public void setHollowbandid(int hollowbandid) {
+        this.hollowbandid = hollowbandid;
+    }
+
+    public int getRightfittingid() {
+        return rightfittingid;
+    }
+
+    public void setRightfittingid(int rightfittingid) {
+        this.rightfittingid = rightfittingid;
+    }
+
+    public int getLeftfittingid() {
+        return leftfittingid;
+    }
+
+    public void setLeftfittingid(int leftfittingid) {
+        this.leftfittingid = leftfittingid;
     }
 
     public int getRoof1id() {

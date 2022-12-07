@@ -31,7 +31,7 @@
             <label for="address">Adresse: </label><br>
             <input type="text" id="address" name="address" /><br><br>
             <label for="postalcode">Postnummer: </label><br>
-            <input type="text" id="postalcode" name="postalcode" /><br><br>
+            <input type="text" id="postalcode" name="postalcode" min="1000" max="9999"/><br><br>
 
 
             <input type="submit" class="btn btn-info" value="Opret"/>

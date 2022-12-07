@@ -94,12 +94,25 @@ class OrderMapper {
                     int discid = rs.getInt("discid");
                     Parts disc = OrderMapper.createPartsFromPartVariantId(discid, connectionPool);
                     partsArrayList.add(disc);
+                    int hollowbandid = rs.getInt("hollowbandid");
+                    Parts hollowband = OrderMapper.createPartsFromPartVariantId(hollowbandid, connectionPool);
+                    partsArrayList.add(hollowband);
+                    int rightfittingid = rs.getInt("rightfittingid");
+                    Parts rightfitting = OrderMapper.createPartsFromPartVariantId(rightfittingid, connectionPool);
+                    partsArrayList.add(rightfitting);
+                    int leftfittingid = rs.getInt("leftfittingid");
+                    Parts leftfitting = OrderMapper.createPartsFromPartVariantId(leftfittingid, connectionPool);
+                    partsArrayList.add(leftfitting);
+
+
+
+
                     int costprice = rs.getInt("costprice");
                     int totalprice = rs.getInt("totalprice");
 
                     partList = new PartList(partlistid, length, width, postid, rafterid,
                             beam1id, beam2id, screwid, roofscrewid, roof1id, roof2id,
-                            boltid, discid, costprice, totalprice, partsArrayList);
+                            boltid, discid,hollowbandid,rightfittingid,leftfittingid, costprice, totalprice, partsArrayList);
                 }
             }
         } catch (SQLException ex) {
@@ -220,8 +233,7 @@ class OrderMapper {
     private static int createPartList(int length, int width, int price, int costPrice, ArrayList<Integer> listOfIDs, ConnectionPool connectionPool) {
         int partListid = 0;
 
-
-        String sql = "INSERT INTO partsLists ( length, width, postid, rafterid, beam1id, beam2id, screwid, roofscrewid, roof1id, roof2id, boltid, discid, costprice, totalprice) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO partsLists ( length, width, postid, rafterid, beam1id, beam2id, screwid, roofscrewid, roof1id, roof2id, boltid, discid, hollowbandid, rightfittingid, leftfittingid, costprice, totalprice) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)";
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -237,8 +249,11 @@ class OrderMapper {
                 ps.setInt(10, listOfIDs.get(7));
                 ps.setInt(11, listOfIDs.get(8));
                 ps.setInt(12, listOfIDs.get(9));
-                ps.setInt(13, costPrice);
-                ps.setInt(14, price);
+                ps.setInt(13, listOfIDs.get(10));
+                ps.setInt(14, listOfIDs.get(11));
+                ps.setInt(15, listOfIDs.get(12));
+                ps.setInt(16, costPrice);
+                ps.setInt(17, price);
 
                 ps.executeUpdate();
                 ResultSet rs = ps.getGeneratedKeys();
@@ -248,9 +263,7 @@ class OrderMapper {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
         return partListid;
-
     }
 
 
@@ -350,6 +363,21 @@ class OrderMapper {
 
                 ps.setString(1, status);
                 ps.setInt(2, orderid);
+                ps.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Could not add money into database");
+        }
+    }
+
+    static void updatePrice(int partslistsid, int price, ConnectionPool connectionPool) throws DatabaseException {
+        String sql = "update partslists set totalprice = ? where idpartslists=?;";
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+                ps.setInt(1, price);
+                ps.setInt(2, partslistsid);
                 ps.executeUpdate();
             }
         } catch (SQLException ex) {
