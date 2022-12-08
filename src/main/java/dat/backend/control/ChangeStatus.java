@@ -7,6 +7,7 @@ import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.OrderFacade;
 import dat.backend.model.persistence.UserFacade;
+import dat.backend.model.services.Calculator;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -53,6 +54,13 @@ public class ChangeStatus extends HttpServlet {
         statusList.add("Ikke godkendt");
         statusList.add("Godkendt");
         statusList.add("Betalt");
+
+
+        for(Order o: orderList){
+            int length = o.getPartlist().getLength();
+            int width = o.getPartlist().getWidth();
+            o.setProposedPrice(Calculator.totalPrice(length,width,connectionPool));
+        }
 
         request.setAttribute("statuslist",statusList);
         request.setAttribute("user",user);

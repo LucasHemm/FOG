@@ -7,6 +7,7 @@ import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.OrderFacade;
 import dat.backend.model.persistence.UserFacade;
+import dat.backend.model.services.Calculator;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -40,6 +41,12 @@ public class DeleteOrder extends HttpServlet {
             user = UserFacade.getUserFromUserId(userid,connectionPool);
         } catch (DatabaseException e) {
             e.printStackTrace();
+        }
+
+        for(Order o: orderList){
+            int length = o.getPartlist().getLength();
+            int width = o.getPartlist().getWidth();
+            o.setProposedPrice(Calculator.totalPrice(length,width,connectionPool));
         }
 
         request.setAttribute("user",user);
