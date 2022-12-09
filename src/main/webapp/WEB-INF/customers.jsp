@@ -35,7 +35,7 @@
                     <td>
                         <form>
                             <button formaction="viewCustomerPage" class="btn btn-primary" formmethod="post" name="userid"
-                                    value="${customer.userid}">Se ordre
+                                    value="${customer.userid}">Se ordrer
                             </button>
                         </form>
                     </td>

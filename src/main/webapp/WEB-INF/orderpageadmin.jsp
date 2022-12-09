@@ -55,6 +55,10 @@
                 </c:if>
             </c:forEach>
         </table>
+
+        ${requestScope.svg}
+
+
     </jsp:body>
 
 </t:pagetemplate>

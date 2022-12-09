@@ -51,6 +51,7 @@ public class Calculator {
     }
 
 
+
     //Code for rafters
 
     //2 is hardcoded since we don't choose between different rafter on our site
@@ -67,6 +68,10 @@ public class Calculator {
             }
         }
         return variantid;
+    }
+
+    public static double spaceBetweenRafters(int length){
+        return (length+2.25*amountOfRafters(length))/amountOfRafters(length);
     }
 
     public static int amountOfRafters(double lenght) {
