@@ -65,13 +65,14 @@ public class ViewCustomerOrder extends HttpServlet {
         int length = order.getPartlist().getLength();
         int width = order.getPartlist().getWidth();
 
-        SVG svg = new SVG(0,0,255,210,"0 0 1500 690");
+        SVG svg = new SVG(0,0,100,100,"0 0 855 690   ");
 
         svg.addRect(40,0,width,length);
         CarportSVG.addBeams(svg,length,width);
         CarportSVG.addRafters(svg,length,width);
         CarportSVG.addPosts(svg,length,width);
         CarportSVG.addHollowBand(svg,length,width);
+        CarportSVG.addArrows(svg,length,width);
         request.setAttribute("svg",svg);
 
 

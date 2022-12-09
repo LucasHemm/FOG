@@ -18,7 +18,9 @@ public class SVG {
             "<rect x=\"%d\" y=\"%d\" height=\"%f\" width=\"%f\"\n style=\"stroke:#000000; fill:#ffffff\" stroke-width=\"2\"/>";
 
     private final static String LINETEMPLATE =
-            "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" style=\"stroke:#000000; stroke-dasharray=\"10\"/>";
+            "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" stroke=\"black\" style =\"stroke-width:2;\" stroke-dasharray=\"9\"/>";
+    private final static String LINEWITHARROWSTEMPLATE =
+            "<line x1=\"%d\"  y1=\"%d\" x2=\"%d\" y2=\"%d\" style=\"stroke:#000000;\" marker-start:\"url(#beginArrow);\" marker-end:\"url(#endArrow);\"/>";
 
 
 
@@ -67,6 +69,10 @@ public class SVG {
     public void addLine(int x1, int y1, int x2, int y2)
     {
         svgString.append(String.format(LINETEMPLATE, x1, y1, x2, y2));
+    }
+
+    public void addArrows(int x1, int y1, int x2, int y2){
+        svgString.append(String.format(LINEWITHARROWSTEMPLATE,x1,y1,x2,y2));
     }
 
     public void addInnerSvg(SVG innerSVGDrawing){

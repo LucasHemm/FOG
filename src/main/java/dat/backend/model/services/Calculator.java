@@ -71,7 +71,9 @@ public class Calculator {
     }
 
     public static double spaceBetweenRafters(int length){
-        return (length+2.25*amountOfRafters(length))/amountOfRafters(length);
+        double space = (length-4.5*amountOfRafters(length))/(amountOfRafters(length)-2);
+        System.out.println(space);
+        return space;
     }
 
     public static int amountOfRafters(double lenght) {
