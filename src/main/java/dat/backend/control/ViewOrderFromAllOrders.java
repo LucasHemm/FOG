@@ -10,12 +10,15 @@ import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.OrderFacade;
 import dat.backend.model.persistence.UserFacade;
 import dat.backend.model.services.Calculator;
+import dat.backend.model.services.CarportSVG;
+import dat.backend.model.services.SVG;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 
 @WebServlet(name = "viewOrderFromAllOrders", value = "/viewOrderFromAllOrders")
 public class ViewOrderFromAllOrders extends HttpServlet {
@@ -50,6 +53,25 @@ public class ViewOrderFromAllOrders extends HttpServlet {
         } catch (DatabaseException e) {
             e.printStackTrace();
         }
+
+
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+
+        Locale.setDefault(new Locale("US"));
+
+        int length = order.getPartlist().getLength();
+        int width = order.getPartlist().getWidth();
+
+        SVG svg = new SVG(0,0,100,100,"0 0 855 690   ");
+
+        svg.addRect(40,0,width,length);
+        CarportSVG.addBeams(svg,length,width);
+        CarportSVG.addRafters(svg,length,width);
+        CarportSVG.addPosts(svg,length,width);
+        CarportSVG.addHollowBand(svg,length,width);
+        CarportSVG.addArrows(svg,length,width);
+        request.setAttribute("svg",svg);
 
         request.setAttribute("user",user);
         request.setAttribute("listOfAmounts", listOfAmounts);

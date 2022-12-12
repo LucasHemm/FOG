@@ -356,7 +356,7 @@ class PartMapper {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
-                    ordinalPosition = rs.getInt("ORDINAL_POSITION")-2;
+                    ordinalPosition = rs.getInt("ORDINAL_POSITION")-3;
                 }
             }
         } catch (SQLException ex) {

@@ -352,7 +352,7 @@ public class Calculator {
 
 
     public static double totalPriceBeforeTax(int length, int width, ConnectionPool connectionPool) {
-        double price = 0;
+        double price = 5000;
         price += postPrice(length, connectionPool);
         price += rafterPrice(length, width, connectionPool);
         price += beamPrice(length, connectionPool);

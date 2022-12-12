@@ -88,7 +88,6 @@ public class ViewCustomerOrder extends HttpServlet {
         request.setAttribute("partsArrayList", partsArrayList);
 
 
-
         request.getRequestDispatcher("WEB-INF/orderpageadmin.jsp").forward(request, response);
 
     }
