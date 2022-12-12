@@ -52,14 +52,13 @@ public class CarportSVG {
 
     public static SVG addArrows(SVG svg,int length, int width){
         svg.addArrows(15,0,15,width);
-        svg.addArrows(30,35,30,width-35);
-        svg.addArrows(40,width+15,length+40,width+15);
-
+        svg.addArrows(33,35,33,width-35);
+        svg.addArrows(40,width+15,length+42,width+15);
+        svg.addText(12,width/2,-90, String.valueOf(width) + " cm");
+        svg.addText(30,width/2,-90, String.valueOf(width-70) + " cm");
+        svg.addText(length/2+40,width+30,0,(length + " cm"));
         return svg;
     }
-
-
-
 
 
 }

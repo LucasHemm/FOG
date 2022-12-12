@@ -20,7 +20,9 @@ public class SVG {
     private final static String LINETEMPLATE =
             "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" stroke=\"black\" style =\"stroke-width:2;\" stroke-dasharray=\"9\"/>";
     private final static String LINEWITHARROWSTEMPLATE =
-            "<line x1=\"%d\"  y1=\"%d\" x2=\"%d\" y2=\"%d\" style=\"stroke:#000000;\" marker-start:\"url(#beginArrow);\" marker-end:\"url(#endArrow);\"/>";
+            "<line x1=\"%d\"  y1=\"%d\" x2=\"%d\" y2=\"%d\" style=\"stroke:#000000; marker-start:url(#beginArrow); marker-end:url(#endArrow);\"/>";
+    private final static String TEXTTEMPPLATE =
+            "<text style=\"text-anchor: middle\" transform=\"translate(%d,%d) rotate(%d)\">%s</text>";
 
 
 
@@ -51,8 +53,8 @@ public class SVG {
 
 
     public SVG(int x, int y, int height, int width, String viewbox) {
-        svgString.append(ARROWHEADSTEMPLATE);
         svgString.append(String.format(HEADERTEMPLATE,x, y, height, width, viewbox));
+        svgString.append(ARROWHEADSTEMPLATE);
         this.x = x;
         this.y = y;
         this.height = height;
@@ -78,6 +80,10 @@ public class SVG {
     public void addInnerSvg(SVG innerSVGDrawing){
 
         svgString.append(innerSVGDrawing);
+    }
+
+    public void addText(int x, int y, int rotation, String text){
+        svgString.append(String.format(TEXTTEMPPLATE,x,y,rotation,text));
     }
 
 
