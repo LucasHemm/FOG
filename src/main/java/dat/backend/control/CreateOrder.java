@@ -38,12 +38,24 @@ public class CreateOrder extends HttpServlet {
         int userid = user.getUserid();
         int length = Integer.parseInt(request.getParameter("length"));
         int width = Integer.parseInt(request.getParameter("width"));
-        //Price after tax
-        int price = (int) Math.round(Calculator.totalPrice(length, width, connectionPool));
-        int costPrice = (int) Math.round(Calculator.totalCostPrice(length, width, connectionPool));
-        ArrayList<Integer> listOfIDs = Calculator.listOfIDs(length, width, connectionPool);
+        int shedchoice = Integer.parseInt(request.getParameter("hasShed"));
+        boolean hasShed = false;
+        int shedlength = 0;
+        int shedwidth = 0;
 
-        OrderFacade.createOrder(userid,length,width,price,costPrice,listOfIDs,connectionPool);
+        if(shedchoice == 1){
+            hasShed = true;
+            shedlength = length/Integer.parseInt(request.getParameter("shedlength"));
+            shedwidth = (width-70)/Integer.parseInt(request.getParameter("shedwidth"));
+
+        }
+
+        //Price after tax
+        int price = (int) Math.round(Calculator.totalPrice(length, width, connectionPool,hasShed,shedlength,shedwidth));
+        int costPrice = (int) Math.round(Calculator.totalCostPrice(length, width, connectionPool,hasShed,shedlength,shedwidth));
+        ArrayList<Integer> listOfIDs = Calculator.listOfIDs(length, width, connectionPool,hasShed,shedlength,shedwidth);
+
+        OrderFacade.createOrder(userid,length,width,price,costPrice,listOfIDs,hasShed,shedlength,shedwidth,connectionPool);
 
 
 

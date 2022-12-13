@@ -74,9 +74,9 @@ class OrderMapper {
                     if (beam2 != null) {
                         partsArrayList.add(beam2);
                     }
-                    int screwid = rs.getInt("screwid");
-                    Parts screw = OrderMapper.createPartsFromPartVariantId(screwid, connectionPool);
-                    partsArrayList.add(screw);
+                    int fittingscrewid = rs.getInt("fittingscrewid");
+                    Parts fittingscrew = OrderMapper.createPartsFromPartVariantId(fittingscrewid, connectionPool);
+                    partsArrayList.add(fittingscrew);
                     int roofscrewid = rs.getInt("roofscrewid");
                     Parts roofscrew = OrderMapper.createPartsFromPartVariantId(roofscrewid, connectionPool);
                     partsArrayList.add(roofscrew);
@@ -103,16 +103,43 @@ class OrderMapper {
                     int leftfittingid = rs.getInt("leftfittingid");
                     Parts leftfitting = OrderMapper.createPartsFromPartVariantId(leftfittingid, connectionPool);
                     partsArrayList.add(leftfitting);
+                    int lathid = rs.getInt("lathid");
+                    Parts lath = OrderMapper.createPartsFromPartVariantId(leftfittingid, connectionPool);
+                    partsArrayList.add(lath);
+                    int boardid = rs.getInt("boardid");
+                    Parts board = OrderMapper.createPartsFromPartVariantId(boardid, connectionPool);
+                    partsArrayList.add(board);
+                    int gablehollowid = rs.getInt("gablehollowid");
+                    Parts gablehollow = OrderMapper.createPartsFromPartVariantId(gablehollowid, connectionPool);
+                    partsArrayList.add(gablehollow);
+                    int sidehollowid = rs.getInt("sidehollowid");
+                    Parts sidehollow = OrderMapper.createPartsFromPartVariantId(sidehollowid, connectionPool);
+                    partsArrayList.add(sidehollow);
+                    int screwid = rs.getInt("screwid");
+                    Parts screw = OrderMapper.createPartsFromPartVariantId(screwid, connectionPool);
+                    partsArrayList.add(screw);
+                    int doorhandleid = rs.getInt("doorhandleid");
+                    Parts doorhandle = OrderMapper.createPartsFromPartVariantId(doorhandleid, connectionPool);
+                    partsArrayList.add(doorhandle);
+                    int thingeid = rs.getInt("thingeid");
+                    Parts thinge = OrderMapper.createPartsFromPartVariantId(thingeid, connectionPool);
+                    partsArrayList.add(thinge);
+                    int anglefittingid = rs.getInt("anglefittingid");
+                    Parts anglefitting = OrderMapper.createPartsFromPartVariantId(anglefittingid, connectionPool);
+                    partsArrayList.add(anglefitting);
 
 
 
+                    boolean hasShed = rs.getBoolean("hasShed");
+                    int shedlength = rs.getInt("shedlength");
+                    int shedwidth = rs.getInt("shedwidth");
 
                     int costprice = rs.getInt("costprice");
                     int totalprice = rs.getInt("totalprice");
 
                     partList = new PartList(partlistid, length, width, postid, rafterid,
-                            beam1id, beam2id, screwid, roofscrewid, roof1id, roof2id,
-                            boltid, discid,hollowbandid,rightfittingid,leftfittingid, costprice, totalprice, partsArrayList);
+                            beam1id, beam2id, fittingscrewid, roofscrewid, roof1id, roof2id,
+                            boltid, discid,hollowbandid,rightfittingid,leftfittingid,lathid,boardid,gablehollowid,sidehollowid,screwid,doorhandleid,thingeid,anglefittingid,hasShed,shedlength,shedwidth, costprice, totalprice, partsArrayList);
                 }
             }
         } catch (SQLException ex) {
@@ -213,9 +240,9 @@ class OrderMapper {
 
     }
 
-    static void createOrder(int userid, int length, int width, int price, int costPrice, ArrayList<Integer> listOfIDs, ConnectionPool connectionPool) {
+    static void createOrder(int userid, int length, int width, int price, int costPrice, ArrayList<Integer> listOfIDs, boolean hasShed, int shedLength, int shedWidth, ConnectionPool connectionPool) {
         String sql = "INSERT INTO orders (userid, partlistid) VALUES(?,?)";
-        int partListid = createPartList(length, width, price, costPrice, listOfIDs, connectionPool);
+        int partListid = createPartList(length, width, price, costPrice, listOfIDs, hasShed,shedLength, shedWidth,connectionPool);
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -230,10 +257,10 @@ class OrderMapper {
     }
 
 
-    private static int createPartList(int length, int width, int price, int costPrice, ArrayList<Integer> listOfIDs, ConnectionPool connectionPool) {
+    private static int createPartList(int length, int width, int price, int costPrice, ArrayList<Integer> listOfIDs, boolean hasShed, int shedLength, int shedWidth, ConnectionPool connectionPool) {
         int partListid = 0;
 
-        String sql = "INSERT INTO partsLists ( length, width, postid, rafterid, beam1id, beam2id, screwid, roofscrewid, roof1id, roof2id, boltid, discid, hollowbandid, rightfittingid, leftfittingid, costprice, totalprice) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)";
+        String sql = "INSERT INTO partsLists ( length, width, postid, rafterid, beam1id, beam2id, fittingscrewid, roofscrewid, roof1id, roof2id, boltid, discid, hollowbandid, rightfittingid, leftfittingid, lathid, boardid, gablehollowid, sidehollowid, screwid, doorhandleid, thingeid, anglefittingid, costprice, totalprice, hasshed, shedlength, shedwidth) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -252,8 +279,19 @@ class OrderMapper {
                 ps.setInt(13, listOfIDs.get(10));
                 ps.setInt(14, listOfIDs.get(11));
                 ps.setInt(15, listOfIDs.get(12));
-                ps.setInt(16, costPrice);
-                ps.setInt(17, price);
+                ps.setInt(16, listOfIDs.get(13));
+                ps.setInt(17, listOfIDs.get(14));
+                ps.setInt(18, listOfIDs.get(15));
+                ps.setInt(19, listOfIDs.get(16));
+                ps.setInt(20, listOfIDs.get(17));
+                ps.setInt(21, listOfIDs.get(18));
+                ps.setInt(22, listOfIDs.get(19));
+                ps.setInt(23, listOfIDs.get(20));
+                ps.setInt(24, costPrice);
+                ps.setInt(25, price);
+                ps.setBoolean(26, hasShed);
+                ps.setInt(27, shedLength);
+                ps.setInt(28, shedWidth);
 
                 ps.executeUpdate();
                 ResultSet rs = ps.getGeneratedKeys();

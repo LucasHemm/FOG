@@ -12,7 +12,7 @@ public class PartList {
     private int rafterid;
     private int beam1id;
     private int beam2id;
-    private int screwid;
+    private int fittingscrewid;
     private int roofscrewid;
     private int roof1id;
     private int roof2id;
@@ -21,6 +21,21 @@ public class PartList {
     private int hollowbandid;
     private int rightfittingid;
     private int leftfittingid;
+    private int lathid;
+    private int boardid;
+    private int gablehollowid;
+    private int sidehollowid;
+    private int screwid;
+    private int doorhandleid;
+    private int thingeid;
+    private int anglefittingid;
+    private boolean hasShed;
+    private int shedlength;
+    private int shedwidth;
+
+
+
+
 
 
 
@@ -29,7 +44,95 @@ public class PartList {
     private ArrayList<Parts> partsArrayList;
 
 
-    public PartList(int partlistid, int length, int width, int postid, int rafterid, int beam1id, int beam2id, int screwid, int roofscrewid, int roof1id, int roof2id, int boltid, int discid, int hollowbandid, int rightfittingid, int leftfittingid, int costprice, int totalprice, ArrayList<Parts> partsArrayList) {
+    public int getLathid() {
+        return lathid;
+    }
+
+    public void setLathid(int lathid) {
+        this.lathid = lathid;
+    }
+
+    public int getBoardid() {
+        return boardid;
+    }
+
+    public void setBoardid(int boardid) {
+        this.boardid = boardid;
+    }
+
+    public int getGablehollowid() {
+        return gablehollowid;
+    }
+
+    public void setGablehollowid(int gablehollowid) {
+        this.gablehollowid = gablehollowid;
+    }
+
+    public int getSidehollowid() {
+        return sidehollowid;
+    }
+
+    public void setSidehollowid(int sidehollowid) {
+        this.sidehollowid = sidehollowid;
+    }
+
+    public int getScrewid() {
+        return screwid;
+    }
+
+    public void setScrewid(int screwid) {
+        this.screwid = screwid;
+    }
+
+    public int getDoorhandleid() {
+        return doorhandleid;
+    }
+
+    public void setDoorhandleid(int doorhandleid) {
+        this.doorhandleid = doorhandleid;
+    }
+
+    public int getThingeid() {
+        return thingeid;
+    }
+
+    public void setThingeid(int thingeid) {
+        this.thingeid = thingeid;
+    }
+
+    public int getAnglefittingid() {
+        return anglefittingid;
+    }
+
+    public void setAnglefittingid(int anglefittingid) {
+        this.anglefittingid = anglefittingid;
+    }
+
+    public boolean isHasShed() {
+        return hasShed;
+    }
+
+    public void setHasShed(boolean hasShed) {
+        this.hasShed = hasShed;
+    }
+
+    public int getShedlength() {
+        return shedlength;
+    }
+
+    public void setShedlength(int shedlength) {
+        this.shedlength = shedlength;
+    }
+
+    public int getShedwidth() {
+        return shedwidth;
+    }
+
+    public void setShedwidth(int shedwidth) {
+        this.shedwidth = shedwidth;
+    }
+
+    public PartList(int partlistid, int length, int width, int postid, int rafterid, int beam1id, int beam2id, int fittingscrewid, int roofscrewid, int roof1id, int roof2id, int boltid, int discid, int hollowbandid, int rightfittingid, int leftfittingid, int lathid, int boardid, int gablehollowid, int sidehollowid, int screwid, int doorhandleid, int thingeid, int anglefittingid, boolean hasShed, int shedlength, int shedwidth, int costprice, int totalprice, ArrayList<Parts> partsArrayList) {
         this.partlistid = partlistid;
         this.length = length;
         this.width = width;
@@ -37,7 +140,7 @@ public class PartList {
         this.rafterid = rafterid;
         this.beam1id = beam1id;
         this.beam2id = beam2id;
-        this.screwid = screwid;
+        this.fittingscrewid = fittingscrewid;
         this.roofscrewid = roofscrewid;
         this.roof1id = roof1id;
         this.roof2id = roof2id;
@@ -46,6 +149,17 @@ public class PartList {
         this.hollowbandid = hollowbandid;
         this.rightfittingid = rightfittingid;
         this.leftfittingid = leftfittingid;
+        this.lathid = lathid;
+        this.boardid = boardid;
+        this.gablehollowid = gablehollowid;
+        this.sidehollowid = sidehollowid;
+        this.screwid = screwid;
+        this.doorhandleid = doorhandleid;
+        this.thingeid = thingeid;
+        this.anglefittingid = anglefittingid;
+        this.hasShed = hasShed;
+        this.shedlength = shedlength;
+        this.shedwidth = shedwidth;
         this.costprice = costprice;
         this.totalprice = totalprice;
         this.partsArrayList = partsArrayList;
@@ -91,12 +205,12 @@ public class PartList {
         this.roof1id = roof1id;
     }
 
-    public int getScrewid() {
-        return screwid;
+    public int getFittingscrewid() {
+        return fittingscrewid;
     }
 
-    public void setScrewid(int screwid) {
-        this.screwid = screwid;
+    public void setFittingscrewid(int fittingscrewid) {
+        this.fittingscrewid = fittingscrewid;
     }
 
     public int getRoofscrewid() {

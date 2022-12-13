@@ -17,26 +17,63 @@ class PartMapperTest {
     void newPartInitializer() {
 
         try {
-            PartFacade.newPartInitializer("hulbånd 1x20 mm. 10 mtr.",297,199,"Til vindkryds på spær", "HollowBand", "Stk", "Stk","hollowband",0,0,connectionPool);
-        } catch (DatabaseException e) {
-            e.printStackTrace();
-        }
-
-
-        try {
-            PartFacade.newPartInitializer("universal 190 mm højre",32,23,"Til montering af spær på rem", "RightFitting", "Stk", "Stk","rightfitting",0,0,connectionPool);
+            PartFacade.newPartInitializer("38x73 mm. Lægte ubh.",134,96,"til z på bagside af dør", "Lath", "Stk", "Stk","lath",420,420,connectionPool);
         } catch (DatabaseException e) {
             e.printStackTrace();
         }
 
         try {
-            PartFacade.newPartInitializer("universal 190 mm venstre",32,23,"Til montering af spær på rem", "LeftFitting", "Stk", "Stk","leftfitting",0,0,connectionPool);
+            PartFacade.newPartInitializer("19x100 mm. trykimp. Brædt ",53,38,"til beklædning af skur 1 på 2", "Board", "Stk", "Stk","board",300,300,connectionPool);
         } catch (DatabaseException e) {
             e.printStackTrace();
         }
+
+        try {
+            PartFacade.newPartInitializer("45x95 mm. Reglar ub. ",16,11,"løsholter til skur gavle", "LooseHollowGable", "Stk", "M","gablehollow",300,540,connectionPool);
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            PartFacade.newPartInitializer("45x95 mm. Reglar ub. ",16,11,"løsholter til skur sider", "LooseHollowSide", "Stk", "M","sidehollow",300,540,connectionPool);
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            PartFacade.newPartInitializer("'4,5 x 70 mm. Skruer 400 stk.' ",184,131,"Til beklædning af skur", "Screw", "Stk", "Stk","screw",0,0,connectionPool);
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            PartFacade.newPartInitializer("stalddørsgreb 50x75 ",215,154,"Til lås på dør i skur", "DoorHandle", "Stk", "Stk","doorhandle",0,0,connectionPool);
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            PartFacade.newPartInitializer("t hængsel 390 mm ",111,79,"Til skurdør", "tHinge", "Stk", "Stk","thinge",0,0,connectionPool);
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            PartFacade.newPartInitializer("vinkelbeslag 35 ",8,6,"Til montering af løsholter i skur", "AngleFitting", "Stk", "Stk","anglefitting",0,0,connectionPool);
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+        }
+
+
 
 
     }
+
+//    try {
+//        PartFacade.newPartInitializer("4,0x50 mm. beslagskruer 250stk. ",223,159,"Til montering af universalbeslag + hulbånd", "FittingScrew", "Stk", "Stk","fittingscrew",0,0,connectionPool);
+//    } catch (DatabaseException e) {
+//        e.printStackTrace();
+//    }
 
     @Test
     void partArray(){

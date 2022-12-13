@@ -27,14 +27,14 @@ public class CarportSVG {
         return svg;
     }
 
-    public static SVG addPosts(SVG svg, int length, int width){
-        for(int i = 0; i < Calculator.amountOfPosts(length)/2-1;i++) {
+    public static SVG addPosts(SVG svg, int length, int width,boolean hasShed){
+        for(int i = 0; i < Calculator.amountOfPosts(length,hasShed,width)/2-1;i++) {
             svg.addRect( (int) (0.14*length+40)+i*300, 32, 10, 10);
         }
           svg.addRect((int) (length-length*0.03)+40,32,10,10);
 
 
-        for(int i = 0; i < Calculator.amountOfPosts(length)/2-1 ;i++) {
+        for(int i = 0; i < Calculator.amountOfPosts(length,hasShed,width)/2-1 ;i++) {
 
             svg.addRect((int) (0.14*length+40)+i*300, width-37, 10, 10);
         }

@@ -32,7 +32,7 @@
             </tr>
             </thead>
             <c:forEach var="part" items="${requestScope.partsArrayList}" varStatus="status">
-                <c:if test="${part.part_Description != 'Placeholder/Deafault'}">
+                <c:if test="${part.part_Description != 'Placeholder/Deafault.'}">
                     <tr>
                         <td>
                                 ${part.part_Description}

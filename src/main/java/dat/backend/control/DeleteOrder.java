@@ -46,7 +46,10 @@ public class DeleteOrder extends HttpServlet {
         for(Order o: orderList){
             int length = o.getPartlist().getLength();
             int width = o.getPartlist().getWidth();
-            o.setProposedPrice(Calculator.totalPrice(length,width,connectionPool));
+            boolean hasShed = o.getPartlist().isHasShed();
+            int shedlength = o.getPartlist().getShedlength();
+            int shedwidth = o.getPartlist().getShedwidth();
+            o.setProposedPrice(Calculator.totalPrice(length,width,connectionPool,hasShed,shedlength,shedwidth));
         }
 
         request.setAttribute("user",user);

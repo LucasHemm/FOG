@@ -44,7 +44,7 @@ public class ViewOrderFromAllOrders extends HttpServlet {
         PartList partList = order.getPartlist();
         ArrayList<Parts> partsArrayList = partList.getPartsArrayList();
 
-        ArrayList<Integer> listOfAmounts = Calculator.listOfPartAmounts(partList.getLength(), partList.getWidth(), connectionPool);
+        ArrayList<Integer> listOfAmounts = Calculator.listOfPartAmounts(partList.getLength(), partList.getWidth(),connectionPool,partList.isHasShed(),partList.getShedlength(),partList.getShedwidth() );
 
 
         User user = null;
@@ -62,13 +62,15 @@ public class ViewOrderFromAllOrders extends HttpServlet {
 
         int length = order.getPartlist().getLength();
         int width = order.getPartlist().getWidth();
+        boolean hasShed = order.getPartlist().isHasShed();
+
 
         SVG svg = new SVG(0,0,100,100,"0 0 855 690   ");
 
         svg.addRect(40,0,width,length);
         CarportSVG.addBeams(svg,length,width);
         CarportSVG.addRafters(svg,length,width);
-        CarportSVG.addPosts(svg,length,width);
+        CarportSVG.addPosts(svg,length,width,hasShed);
         CarportSVG.addHollowBand(svg,length,width);
         CarportSVG.addArrows(svg,length,width);
         request.setAttribute("svg",svg);
