@@ -2,23 +2,18 @@ package dat.backend.model.services;
 
 public class CheckString {
 
-    public static int stringToInt(String num){
+    public static int stringToInt(String num) {
         int ans = 0;
-        String toInt ="";
+        String toInt = "";
 
-        if(num.equals("")){
-
-        }
-
-        else if (num.contains(".")){
-            for(int i=0; i<num.length() ;++i){
-                if('.' == num.charAt(i)) {
+        if (num.contains(".")) {
+            for (int i = 0; i < num.length(); ++i) {
+                if ('.' == num.charAt(i)) {
                     i++;
                 }
                 toInt += num.charAt(i);
             }
-        }
-        else{
+        } else {
             toInt = num;
         }
 
