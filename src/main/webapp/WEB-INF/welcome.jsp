@@ -51,7 +51,7 @@
             <select name="shedlength" id="shedlength">
                     <option value="4">Lille - 25% af længden.</option>
                     <option selected="selected" value="3">Mellem - 33% af længden.</option>
-                    <option value="$2">Stor - 50% af længden.</option>
+                    <option value="2">Stor - 50% af længden.</option>
             </select>
 
 

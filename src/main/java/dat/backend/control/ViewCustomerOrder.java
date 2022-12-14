@@ -65,15 +65,18 @@ public class ViewCustomerOrder extends HttpServlet {
         int length = order.getPartlist().getLength();
         int width = order.getPartlist().getWidth();
         boolean hasShed = order.getPartlist().isHasShed();
+        int shedlength = order.getPartlist().getShedlength();
+        int shedwidth = order.getPartlist().getShedwidth();
 
         SVG svg = new SVG(0,0,100,100,"0 0 855 690   ");
 
         svg.addRect(40,0,width,length);
         CarportSVG.addBeams(svg,length,width);
         CarportSVG.addRafters(svg,length,width);
-        CarportSVG.addPosts(svg,length,width,hasShed);
+        CarportSVG.addPosts(svg,length,width,hasShed,shedlength,shedwidth);
         CarportSVG.addHollowBand(svg,length,width);
         CarportSVG.addArrows(svg,length,width);
+        CarportSVG.addShedRect(svg,length,width,hasShed,shedlength,shedwidth);
         request.setAttribute("svg",svg);
 
 

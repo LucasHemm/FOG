@@ -104,7 +104,7 @@ class OrderMapper {
                     Parts leftfitting = OrderMapper.createPartsFromPartVariantId(leftfittingid, connectionPool);
                     partsArrayList.add(leftfitting);
                     int lathid = rs.getInt("lathid");
-                    Parts lath = OrderMapper.createPartsFromPartVariantId(leftfittingid, connectionPool);
+                    Parts lath = OrderMapper.createPartsFromPartVariantId(lathid, connectionPool);
                     partsArrayList.add(lath);
                     int boardid = rs.getInt("boardid");
                     Parts board = OrderMapper.createPartsFromPartVariantId(boardid, connectionPool);

@@ -28,9 +28,9 @@ public class CreateOrder extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String msg = "Din forespørgsel er nu blevet oprette - se status her på din profil side.";
-        request.setAttribute("msg",msg);
+        request.setAttribute("msg", msg);
 
-        ArrayList<Order> orderList= null;
+        ArrayList<Order> orderList = null;
 
 
         HttpSession session = request.getSession();
@@ -43,33 +43,32 @@ public class CreateOrder extends HttpServlet {
         int shedlength = 0;
         int shedwidth = 0;
 
-        if(shedchoice == 1){
+        if (shedchoice == 1) {
             hasShed = true;
-            shedlength = length/Integer.parseInt(request.getParameter("shedlength"));
-            shedwidth = (width-70)/Integer.parseInt(request.getParameter("shedwidth"));
-
+            int shedLengthDenominator = Integer.parseInt(request.getParameter("shedlength"));
+            shedlength = length / shedLengthDenominator;
+            int shedWidthDenominator = Integer.parseInt(request.getParameter("shedwidth"));
+            shedwidth = (width-70) / shedWidthDenominator;
         }
 
         //Price after tax
-        int price = (int) Math.round(Calculator.totalPrice(length, width, connectionPool,hasShed,shedlength,shedwidth));
-        int costPrice = (int) Math.round(Calculator.totalCostPrice(length, width, connectionPool,hasShed,shedlength,shedwidth));
-        ArrayList<Integer> listOfIDs = Calculator.listOfIDs(length, width, connectionPool,hasShed,shedlength,shedwidth);
+        int price = (int) Math.round(Calculator.totalPrice(length, width, connectionPool, hasShed, shedlength, shedwidth));
+        int costPrice = (int) Math.round(Calculator.totalCostPrice(length, width, connectionPool, hasShed, shedlength, shedwidth));
+        ArrayList<Integer> listOfIDs = Calculator.listOfIDs(length, width, connectionPool, hasShed, shedlength, shedwidth);
 
-        OrderFacade.createOrder(userid,length,width,price,costPrice,listOfIDs,hasShed,shedlength,shedwidth,connectionPool);
-
-
+        OrderFacade.createOrder(userid, length, width, price, costPrice, listOfIDs, hasShed, shedlength, shedwidth, connectionPool);
 
 
 //        HttpSession session = request.getSession();
 //        User user = (User) session.getAttribute("user");
         try {
-            orderList = OrderFacade.getOrdersFromUserId(user.getUserid(),connectionPool);
+            orderList = OrderFacade.getOrdersFromUserId(user.getUserid(), connectionPool);
         } catch (DatabaseException e) {
             e.printStackTrace();
         }
 
 
-        request.setAttribute("orderList",orderList);
+        request.setAttribute("orderList", orderList);
         request.getRequestDispatcher("WEB-INF/profile.jsp").forward(request, response);
 
     }

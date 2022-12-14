@@ -16,6 +16,8 @@ public class SVG {
 
     private final static String RECTTEMPLATE =
             "<rect x=\"%d\" y=\"%d\" height=\"%f\" width=\"%f\"\n style=\"stroke:#000000; fill:#ffffff\" stroke-width=\"2\"/>";
+    private final static String RECTSHEDTEMPLATE =
+            "<rect x=\"%d\" y=\"%d\" height=\"%f\" width=\"%f\"\n style=\"stroke:#000000; fill:none\" stroke-width=\"4\"/>";
 
     private final static String LINETEMPLATE =
             "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" stroke=\"black\" style =\"stroke-width:2;\" stroke-dasharray=\"9\"/>";
@@ -66,6 +68,10 @@ public class SVG {
 
         svgString.append(String.format(RECTTEMPLATE,x,y,height,width));
     }
+    public void addShedRect(int x, int y, double height, double width){
+
+        svgString.append(String.format(RECTSHEDTEMPLATE,x,y,height,width));
+    }
 
 
     public void addLine(int x1, int y1, int x2, int y2)
@@ -77,10 +83,7 @@ public class SVG {
         svgString.append(String.format(LINEWITHARROWSTEMPLATE,x1,y1,x2,y2));
     }
 
-    public void addInnerSvg(SVG innerSVGDrawing){
 
-        svgString.append(innerSVGDrawing);
-    }
 
     public void addText(int x, int y, int rotation, String text){
         svgString.append(String.format(TEXTTEMPPLATE,x,y,rotation,text));
