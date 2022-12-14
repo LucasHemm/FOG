@@ -12,6 +12,7 @@
     <jsp:body>
 
          <h3>Her kan du oprette dig</h3>
+        <h4>OBS. ${requestScope.msg3}</h4>
         <form action="createUser" method="post">
             <label for="name">Navn: </label><br>
             <input type="text" id="name" name="name"/><br><br>

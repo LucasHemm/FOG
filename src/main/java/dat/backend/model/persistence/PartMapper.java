@@ -1,9 +1,12 @@
 package dat.backend.model.persistence;
 
+import dat.backend.model.entities.Parts;
 import dat.backend.model.exceptions.DatabaseException;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 class PartMapper {
 
@@ -386,5 +389,53 @@ class PartMapper {
         }
         return columnName;
     }
+    static ArrayList<Integer> getAllPartIDs(ConnectionPool connectionPool) throws DatabaseException {
+
+        ArrayList<Integer> idList = new ArrayList<>();
+        String sql = "SELECT * from parts";
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    int partID = rs.getInt("idparts");
+                    idList.add(partID);
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "No users were found");
+        }
+        return idList;
+    }
+
+
+
+    static Map<Integer, Parts> getAllParts(ConnectionPool connectionPool) throws DatabaseException {
+
+        Map<Integer,Parts> partsMap = new HashMap<>();
+        String sql = "SELECT * from parts";
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    int partID = rs.getInt("idparts");
+                    String description = rs.getString("part_description");
+                    int price = rs.getInt("price_pr_unit");
+                    int costPrice = rs. getInt("costprice_pr_unit");
+                    String usage = rs.getString("part_usage");
+                    String type = rs.getString("part_type");
+                    String unit = rs.getString("unit");
+                    String priceUnit = rs.getString("priceunit");
+                    Parts part = new Parts(description,price,costPrice,usage,type,unit,priceUnit);
+                    partsMap.put(partID,part);
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "No users were found");
+        }
+        return partsMap;
+    }
+
 
 }

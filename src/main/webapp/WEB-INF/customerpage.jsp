@@ -84,7 +84,7 @@
                             Forslået pris: ${Math.round(order.proposedPrice)}kr. <br>
                             Salgspris: ${order.partlist.totalprice}kr. <br>
                             <label for="newprice">Prisforslag: </label><br>
-                            <input type="number" id="newprice" name="newprice" value="0" style="width: 7em"/> kr.
+                            <input type="number" id="newprice" name="newprice" value="${Math.round(order.proposedPrice)}" style="width: 7em"/> kr.
                             <button type="submit" class="btn btn-success">Opdater</button>
                             <input type="hidden" id="orderid2" name="orderid2" value="${order.orderid}">
                             <input type="hidden" id="userid2" name="userid2" value="${requestScope.user.userid}">

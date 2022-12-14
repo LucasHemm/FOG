@@ -22,6 +22,15 @@ public class Parts {
         this.priceUnit = priceUnit;
         this.partLength = partLength;
     }
+    public Parts(String part_Description, int pricePrUnit, int costPricePrUnit, String part_Usage, String part_Type, String unit,String priceUnit) {
+        this.part_Description = part_Description;
+        this.pricePrUnit = pricePrUnit;
+        this.costPricePrUnit = costPricePrUnit;
+        this.part_Usage = part_Usage;
+        this.part_Type = part_Type;
+        this.unit = unit;
+        this.priceUnit = priceUnit;
+    }
 
     public String getPart_Description() {
         return part_Description;
@@ -64,6 +73,13 @@ public class Parts {
     }
 
 
+    public String getPriceUnit() {
+        return priceUnit;
+    }
+
+    public void setPriceUnit(String priceUnit) {
+        this.priceUnit = priceUnit;
+    }
 
     public String getUnit() {
         return unit;

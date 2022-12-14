@@ -33,8 +33,17 @@ public class CreateUser extends HttpServlet {
 
 
         String password = request.getParameter("password1");
+        if (password.equals("")) {
+            String msg3 = "Du skal skrive en adgangskode";
+            request.setAttribute("msg3", msg3);
+            request.getRequestDispatcher("WEB-INF/createUser.jsp").forward(request, response);
+        }
         String password2 = request.getParameter("password2");
-
+        if (password2.equals("")) {
+            String msg3 = "Du skal skrive adgangskode";
+            request.setAttribute("msg3", msg3);
+            request.getRequestDispatcher("WEB-INF/createUser.jsp").forward(request, response);
+        }
 
 
         if (!password.equals(password2)) {
@@ -47,10 +56,37 @@ public class CreateUser extends HttpServlet {
         session.setAttribute("user", null); // invalidating user object in session scope
         //int id = Integer.parseInt((request.getParameter("userid")));
         String name = request.getParameter("name");
+        if (name.equals("")) {
+            String msg3 = "Du skal skrive et navn";
+            request.setAttribute("msg3", msg3);
+            request.getRequestDispatcher("WEB-INF/createUser.jsp").forward(request, response);
+        }
         String email = request.getParameter("email");
-        int postalcode = CheckString.stringToInt(request.getParameter("postalcode"));
+        if (email.equals("")) {
+            String msg3 = "Du skal skrive en email";
+            request.setAttribute("msg3", msg3);
+            request.getRequestDispatcher("WEB-INF/createUser.jsp").forward(request, response);
+        }
         String cityName = request.getParameter("city");
+        if (cityName.equals("")) {
+            String msg3 = "Du skal skrive et bynavn";
+            request.setAttribute("msg3", msg3);
+            request.getRequestDispatcher("WEB-INF/createUser.jsp").forward(request, response);
+        }
         String streetName = request.getParameter("address");
+        if (streetName.equals("")) {
+            String msg3 = "Du skal skrive din addresse";
+            request.setAttribute("msg3", msg3);
+            request.getRequestDispatcher("WEB-INF/createUser.jsp").forward(request, response);
+        }
+
+        String postalcodeString = request.getParameter("postalcode");
+        if (postalcodeString == "") {
+            String msg3 = "Du skal skrive et postnummer";
+            request.setAttribute("msg3", msg3);
+            request.getRequestDispatcher("WEB-INF/createUser.jsp").forward(request, response);
+        }
+        int postalcode = CheckString.stringToInt(postalcodeString);
 
 
         try {

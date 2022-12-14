@@ -13,6 +13,7 @@
         <form method="post">
             <button formaction="viewCustomers" class="btn btn-info">Kunder</button>
             <button formaction="viewAllOrders"class="btn btn-info">Ordre</button>
+            <button formaction="viewStorage"class="btn btn-info">Varelager</button>
 
         </form>
         

@@ -1,8 +1,10 @@
 package dat.backend.model.persistence;
 
+import dat.backend.model.entities.Parts;
 import dat.backend.model.exceptions.DatabaseException;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class PartFacade {
     public static ArrayList<Integer> partsLengthFromPartid(int partid, ConnectionPool connectionPool) {
@@ -40,6 +42,13 @@ public class PartFacade {
 
     public static int getLengthFromVariantid(int id, ConnectionPool connectionPool) {
         return PartMapper.getLengthFromVariantid(id, connectionPool);
+    }
+    public static ArrayList<Integer> getAllPartIDs(ConnectionPool connectionPool) throws DatabaseException {
+        return PartMapper.getAllPartIDs(connectionPool);
+    }
+
+    public static Map<Integer, Parts> getAllParts(ConnectionPool connectionPool) throws DatabaseException {
+        return PartMapper.getAllParts(connectionPool);
     }
 
 }
