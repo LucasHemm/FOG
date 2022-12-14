@@ -50,5 +50,11 @@ public class PartFacade {
     public static Map<Integer, Parts> getAllParts(ConnectionPool connectionPool) throws DatabaseException {
         return PartMapper.getAllParts(connectionPool);
     }
+    public static Parts getPartFromPartID(int partID, ConnectionPool connectionPool) throws DatabaseException {
+        return  PartMapper.getPartFromPartID(partID,connectionPool);
+    }
+    public static void updatePart(int partID, String description, int price, int costPrice, String usage, ConnectionPool connectionPool) throws DatabaseException {
+        PartMapper.updatePart(partID,description,price,costPrice,usage,connectionPool);
+    }
 
 }

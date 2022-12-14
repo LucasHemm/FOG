@@ -12,6 +12,7 @@
     <jsp:body>
         <h1>Lager</h1>
 
+
         <table class="table table-striped table-bordered">
             <thead>
             <tr>
@@ -21,6 +22,7 @@
                 <th>Enhed</th>
                 <th>Beskrivelse</th>
                 <th>Længder</th>
+                <th>Rediger</th>
             </tr>
             </thead>
             <c:forEach var="map" items="${requestScope.partsMap}">
@@ -65,6 +67,12 @@
                             </c:if>
 
 
+                        </td>
+                        <td>
+                            <form action="vieweditPage" method="post">
+                                <input type="hidden" id="partid" name="partid" value="${map.key}">
+                                <button type="submit" class="btn btn-info">Rediger</button>
+                            </form>
                         </td>
                     </tr>
                 </c:if>

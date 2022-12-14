@@ -436,6 +436,50 @@ class PartMapper {
         }
         return partsMap;
     }
+    static Parts getPartFromPartID(int partID, ConnectionPool connectionPool) throws DatabaseException {
+        Parts part = null;
+
+        String sql ="SELECT * FROM parts where idparts = ?";
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+                ps.setInt(1, partID);
+                ResultSet rs = ps.executeQuery();
+                if(rs.next()){
+                    String description = rs.getString("part_description");
+                    int price = rs.getInt("price_pr_unit");
+                    int costPrice = rs. getInt("costprice_pr_unit");
+                    String usage = rs.getString("part_usage");
+                    String type = rs.getString("part_type");
+                    String unit = rs.getString("unit");
+                    String priceUnit = rs.getString("priceunit");
+                    part = new Parts(description,price,costPrice,usage,type,unit,priceUnit);
+                }
+
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Could not get part");
+        }
+        return part;
+    }
+    static void updatePart(int partID, String description, int price, int costPrice, String usage, ConnectionPool connectionPool) throws DatabaseException {
+        String sql = "update parts set part_description = ?, price_pr_unit = ?, costprice_pr_unit = ?, part_usage = ? where idparts = ?";
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+                ps.setString(1, description);
+                ps.setInt(2, price);
+                ps.setInt(3, costPrice);
+                ps.setString(4, usage);
+                ps.setInt(5,partID);
+                ps.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Could not update part");
+        }
+    }
 
 
 }
