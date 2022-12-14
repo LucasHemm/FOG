@@ -42,6 +42,11 @@ public class DeleteOrder extends HttpServlet {
         } catch (DatabaseException e) {
             e.printStackTrace();
         }
+        ArrayList<String> statusList = new ArrayList<>();
+        statusList.add("Skal slettes");
+        statusList.add("Ikke godkendt");
+        statusList.add("Godkendt");
+        statusList.add("Betalt");
 
         for(Order o: orderList){
             int length = o.getPartlist().getLength();
@@ -52,6 +57,7 @@ public class DeleteOrder extends HttpServlet {
             o.setProposedPrice(Calculator.totalPrice(length,width,connectionPool,hasShed,shedlength,shedwidth));
         }
 
+        request.setAttribute("statuslist",statusList);
         request.setAttribute("user",user);
         request.setAttribute("orderList",orderList);
         request.getRequestDispatcher("WEB-INF/customerpage.jsp").forward(request, response);

@@ -6,7 +6,11 @@ public class CheckString {
         int ans = 0;
         String toInt ="";
 
-        if (num.contains(".")){
+        if(num.equals("")){
+
+        }
+
+        else if (num.contains(".")){
             for(int i=0; i<num.length() ;++i){
                 if('.' == num.charAt(i)) {
                     i++;
