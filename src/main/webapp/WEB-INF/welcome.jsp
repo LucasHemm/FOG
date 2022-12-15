@@ -33,19 +33,19 @@
             <button type="submit" class="btn btn-primary">Lav forespørgsel</button>
 
 
-            <p>Tilvalg af skur</p>
-            <label for="withoutshed">Uden skur</label>
+            <b><p>Tilvalg af skur:</p></b>
+            <label for="withoutshed">Uden skur:</label>
             <input type="radio" id="withoutshed" name="hasShed" checked="checked" value="0">
-            <label for="withshed">Med skur</label>
+            <label for="withshed">Med skur:</label>
             <input type="radio" id="withshed" name="hasShed" value="1">
-            <br>
-
-            <p>Bredde på skur</p>
-            <label for="full">Fuld bredde</label>
+            <br><br>
+            <b><p>Bredde på skur:</p></b>
+            <label for="full">Fuld bredde:</label>
             <input type="radio" id="full" name="shedwidth" checked="checked" value="1">
-            <label for="half">Halv bredde</label>
+            <label for="half">Halv bredde:</label>
             <input type="radio" id="half" name="shedwidth" value="2">
 
+            <br>
             <br>
             <label for="shedlength">Vælg en længde:</label>
             <select name="shedlength" id="shedlength">

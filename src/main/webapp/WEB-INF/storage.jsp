@@ -5,12 +5,11 @@
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-         Velkommen til FOG's quick-byg menu
+         Varelager.
     </jsp:attribute>
 
 
     <jsp:body>
-        <h1>Lager</h1>
 
 
         <table class="table table-striped table-bordered">

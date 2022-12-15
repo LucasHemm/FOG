@@ -37,16 +37,18 @@ public class CarportSVG {
             }
         }
         var = Math.round(var/2);
-        System.out.println(var);
         var--;
-        System.out.println(var);
 
+        int stop = 1;
 
+        if(width == 600 && length<=330){
+            stop--;
+        }
 
         for (int i = 0; i < var; i++) {
 
             svg.addRect((int) (0.14 * length + 40) + i * 300, 32, 10, 10);
-            if(i == 1){
+            if(i == stop){
                 break;
             }
         }
@@ -56,7 +58,7 @@ public class CarportSVG {
         for (int i = 0; i < var; i++) {
 
             svg.addRect((int) (0.14 * length + 40) + i * 300, width - 37, 10, 10);
-            if(i == 1){
+            if(i == stop){
                 break;
             }
         }

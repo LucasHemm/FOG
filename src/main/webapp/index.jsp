@@ -5,26 +5,23 @@
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-         Welcome to the frontpage
+         Velkommen til FOG's carport quick byg menu.
     </jsp:attribute>
 
 
 
     <jsp:body>
 
-        <p>Startcode for 2nd semester </p>
+        <br>
 
-        <c:if test="${sessionScope.user != null}">
-            <p>You are logged in with the role of "${sessionScope.user.role}".</p>
+
+        <c:if test="${sessionScope.user == null}">
+            <p>Log ind her, hvis du allerede er kunde hos os: <a
+                    href="login.jsp">Log ind</a></p>
         </c:if>
 
         <c:if test="${sessionScope.user == null}">
-            <p>You are not logged in yet. You can do it here: <a
-                    href="login.jsp">Login</a></p>
-        </c:if>
-
-        <c:if test="${sessionScope.user == null}">
-            <p>If you don't have an account, you can create one here: <a href="createUser">Opret</a></p>
+            <p>Hvis du ikke er kunde, kan du oprette dig her: <a href="createUser">Opret</a></p>
         </c:if>
 
     </jsp:body>

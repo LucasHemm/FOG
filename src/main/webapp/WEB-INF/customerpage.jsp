@@ -5,13 +5,13 @@
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-         Kunde ${requestScope.user.name}'s profil.
+            ${requestScope.user.name}s profil.
     </jsp:attribute>
 
     <jsp:body>
 
 
-        <p><b>Name:</b> ${requestScope.user.name} <br/>
+        <p><b>Navn:</b> ${requestScope.user.name} <br/>
             <b>Email:</b> ${requestScope.user.email}<br/>
             <b>Adresse:</b> ${requestScope.user.address}, ${requestScope.user.postalcode} ${requestScope.user.cityName}
         </p>
@@ -20,7 +20,7 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>Ordre</th>
+                <th>Ordrer</th>
                 <th>Status</th>
                 <th>Se tegning og stykliste</th>
                 <th>Ordre status</th>
@@ -75,7 +75,7 @@
                     </td>
                     <td>
                         Ialt uden moms: ${Math.round(order.partlist.totalprice*0.8)} kr.<br/>
-                        Samlet kostpris: ${order.partlist.costprice} kr. <br/>
+                        Samlet indkøbspris: ${order.partlist.costprice} kr. <br/>
                         Dækningsgrad: ${Math.round((order.partlist.totalprice*0.8/order.partlist.costprice)*100-100)} %.
                     </td>
 

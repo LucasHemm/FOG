@@ -6,21 +6,22 @@
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-             Login
+             Log ind her.
     </jsp:attribute>
 
 
 
     <jsp:body>
 
-        <h3>You can log in here</h3>
+        <h3>Log ind her</h3>
 
         <form action="login" method="post">
-            <label for="email">E-mail: </label>
+            <label for="email">E-mail: </label><br>
             <input type="text" id="email" name="email"/>
-            <label for="password">Password: </label>
-            <input type="password" id="password" name="password"/>
-            <input type="submit"  value="Log in"/>
+            <br>
+            <label for="password">Kodeord: </label><br>
+            <input type="password" id="password" name="password"/><br><br>
+            <button type="submit" class="btn btn-primary">Log ind</button>
         </form>
 
     </jsp:body>

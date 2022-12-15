@@ -13,7 +13,7 @@
 
         <h5>${requestScope.msg}</h5>
 
-        <p><b>Name:</b> ${sessionScope.user.name} <br/>
+        <p><b>Navn:</b> ${sessionScope.user.name} <br/>
             <b>Email:</b> ${sessionScope.user.email}<br/>
             <b>Adresse:</b> ${sessionScope.user.address}, ${sessionScope.user.postalcode} ${sessionScope.user.cityName}
         </p>
@@ -22,7 +22,7 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>Ordre</th>
+                <th>Ordrer</th>
                 <th>Status</th>
                 <th>Se tegning og stykliste</th>
             </tr>

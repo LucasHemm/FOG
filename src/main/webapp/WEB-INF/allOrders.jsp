@@ -5,7 +5,7 @@
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-         Velkommen Admin.
+         Alle ordrer.
     </jsp:attribute>
     
     <jsp:body>
@@ -14,7 +14,7 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>Ordre</th>
+                <th>Ordrer</th>
                 <th>Status</th>
                 <th>Se tegning og stykliste</th>
             </tr>
