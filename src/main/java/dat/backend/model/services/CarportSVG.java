@@ -28,7 +28,7 @@ public class CarportSVG {
     }
 
     public static SVG addPosts(SVG svg, int length, int width, boolean hasShed, int shedlength, int shedwidth) {
-        double var = Calculator.amountOfPosts(length, hasShed, width);
+        double var = Calculator.amountOfPosts(length, hasShed, width,shedwidth);
         System.out.println(var);
         if(hasShed){
             var -= 3;

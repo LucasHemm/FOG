@@ -260,7 +260,7 @@ class OrderMapper {
     private static int createPartList(int length, int width, int price, int costPrice, ArrayList<Integer> listOfIDs, boolean hasShed, int shedLength, int shedWidth, ConnectionPool connectionPool) {
         int partListid = 0;
 
-        String sql = "INSERT INTO partsLists ( length, width, postid, rafterid, beam1id, beam2id, fittingscrewid, roofscrewid, roof1id, roof2id, boltid, discid, hollowbandid, rightfittingid, leftfittingid, lathid, boardid, gablehollowid, sidehollowid, screwid, doorhandleid, thingeid, anglefittingid, costprice, totalprice, hasshed, shedlength, shedwidth) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO partslists ( length, width, postid, rafterid, beam1id, beam2id, fittingscrewid, roofscrewid, roof1id, roof2id, boltid, discid, hollowbandid, rightfittingid, leftfittingid, lathid, boardid, gablehollowid, sidehollowid, screwid, doorhandleid, thingeid, anglefittingid, costprice, totalprice, hasshed, shedlength, shedwidth) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {

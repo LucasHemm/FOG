@@ -68,7 +68,7 @@ public class ViewCustomerOrder extends HttpServlet {
         int shedlength = order.getPartlist().getShedlength();
         int shedwidth = order.getPartlist().getShedwidth();
 
-        SVG svg = new SVG(0,0,100,100,"0 0 855 690   ");
+        SVG svg = new SVG(0,0,100,100,"0 0 855 690");
 
         svg.addRect(40,0,width,length);
         CarportSVG.addBeams(svg,length,width);

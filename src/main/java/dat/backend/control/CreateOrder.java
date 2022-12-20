@@ -27,7 +27,7 @@ public class CreateOrder extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String msg = "Din forespørgsel er nu blevet oprette - se status her på din profil side.";
+        String msg = "Din forespørgsel er nu blevet oprettet - se status her på din profil side.";
         request.setAttribute("msg", msg);
 
         ArrayList<Order> orderList = null;

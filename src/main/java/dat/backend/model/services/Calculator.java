@@ -10,26 +10,33 @@ public class Calculator {
     //Code for posts
     //1 is hardcoded in methods since we don't choose between different posts on our site
 
-    public static int amountOfPosts(int length, boolean hasShed, int width) {
-        int amount = 4;
+    public static int amountOfPosts(int length, boolean hasShed, int width, int shedWidth) {
 
-        amount = (int) (2 * ((length - length * 0.165) / 310 + 1));
+        double amount = (length - length * 0.165) / 310 + 1;
+
+        amount = Math.round(amount);
+        amount = amount * 2;
         amount += amount % 2;
+
 
         if (hasShed) {
 
-            amount += width / 300 + 3;
+            amount += + 4;
+            if(shedWidth == width - 70){
+                amount++;
+            }
         }
-        return amount;
+
+        return (int) amount;
     }
 
     public static int postid(ConnectionPool connectionPool) {
         return PartFacade.variantidFromPartid(1, connectionPool);
     }
 
-    private static double postPrice(int length, ConnectionPool connectionPool, boolean hasShed, int width) {
+    private static double postPrice(int length, ConnectionPool connectionPool, boolean hasShed, int width, int shedWidth) {
 
-        int amount = amountOfPosts(length, hasShed, width);
+        int amount = amountOfPosts(length, hasShed, width, shedWidth);
         int partid = postid(connectionPool);
 
 
@@ -39,8 +46,8 @@ public class Calculator {
         return price;
     }
 
-    private static double postCostPrice(int length, ConnectionPool connectionPool, boolean hasShed, int width) {
-        int amount = amountOfPosts(length, hasShed, width);
+    private static double postCostPrice(int length, ConnectionPool connectionPool, boolean hasShed, int width, int shedWidth) {
+        int amount = amountOfPosts(length, hasShed, width, shedWidth);
         int partid = postid(connectionPool);
 
         //300 since the post is always 3 meters
@@ -76,8 +83,7 @@ public class Calculator {
     public static int amountOfRafters(double lenght) {
         double num = lenght / 55 + 1;
         num = Math.round(num);
-        int amount = (int) num;
-        return amount;
+        return (int) num;
     }
 
 
@@ -252,8 +258,8 @@ public class Calculator {
         return PartFacade.variantidFromPartid(7, connectionPool);
     }
 
-    public static int amountOfBolts(int length, boolean hasShed, ConnectionPool connectionPool, int width) {
-        int amount = amountOfPosts(length, hasShed, width) + 1;
+    public static int amountOfBolts(int length, boolean hasShed, ConnectionPool connectionPool, int width, int shedWidth) {
+        int amount = amountOfPosts(length, hasShed, width, shedWidth) + 1;
 
         int[] arr = beamVariantsid(length, connectionPool);
 
@@ -265,12 +271,12 @@ public class Calculator {
     }
 
 
-    private static double boltPrice(int length, ConnectionPool connectionPool, boolean hasShed, int width) {
-        return PartFacade.PricePrAmount(7, connectionPool) * amountOfBolts(length, hasShed, connectionPool, width);
+    private static double boltPrice(int length, ConnectionPool connectionPool, boolean hasShed, int width, int shedWidth) {
+        return PartFacade.PricePrAmount(7, connectionPool) * amountOfBolts(length, hasShed, connectionPool, width, shedWidth);
     }
 
-    private static double boltCostPrice(int length, ConnectionPool connectionPool, boolean hasShed, int width) {
-        return PartFacade.costPricePrAmount(7, connectionPool) * amountOfBolts(length, hasShed, connectionPool, width);
+    private static double boltCostPrice(int length, ConnectionPool connectionPool, boolean hasShed, int width, int shedWidth) {
+        return PartFacade.costPricePrAmount(7, connectionPool) * amountOfBolts(length, hasShed, connectionPool, width, shedWidth);
     }
 
 
@@ -280,16 +286,16 @@ public class Calculator {
         return PartFacade.variantidFromPartid(8, connectionPool);
     }
 
-    public static int amountOfDiscs(int length, boolean hasShed, int width) {
-        return amountOfPosts(length, hasShed, width) + 1;
+    public static int amountOfDiscs(int length, boolean hasShed, int width, int shedWidth) {
+        return amountOfPosts(length, hasShed, width, shedWidth) + 1;
     }
 
-    private static double discPrice(int length, ConnectionPool connectionPool, boolean hasShed, int width) {
-        return PartFacade.PricePrAmount(8, connectionPool) * amountOfDiscs(length, hasShed, width);
+    private static double discPrice(int length, ConnectionPool connectionPool, boolean hasShed, int width, int shedWidth) {
+        return PartFacade.PricePrAmount(8, connectionPool) * amountOfDiscs(length, hasShed, width, shedWidth);
     }
 
-    private static double discCostPrice(int length, boolean hasShed, ConnectionPool connectionPool, int width) {
-        return PartFacade.costPricePrAmount(8, connectionPool) * amountOfDiscs(length, hasShed, width);
+    private static double discCostPrice(int length, boolean hasShed, ConnectionPool connectionPool, int width, int shedWidth) {
+        return PartFacade.costPricePrAmount(8, connectionPool) * amountOfDiscs(length, hasShed, width, shedWidth);
     }
 
 
@@ -501,14 +507,14 @@ public class Calculator {
 
     public static double totalPriceBeforeTax(int length, int width, ConnectionPool connectionPool, boolean hasShed, int shedLength, int shedWidth) {
         double price = 0;
-        price += postPrice(length, connectionPool, hasShed, width);
+        price += postPrice(length, connectionPool, hasShed, width, shedWidth);
         price += rafterPrice(length, width, connectionPool);
         price += beamPrice(length, connectionPool);
         price += fittingScrewPrice(connectionPool);
         price += roofScrewPrice(connectionPool);
         price += roofPanelPrice(length, width, connectionPool);
-        price += boltPrice(length, connectionPool, hasShed, width);
-        price += discPrice(length, connectionPool, hasShed, width);
+        price += boltPrice(length, connectionPool, hasShed, width, shedWidth);
+        price += discPrice(length, connectionPool, hasShed, width, shedWidth);
         price += bandPrice(connectionPool);
         price += rightFittingsPrice(length, connectionPool);
         price += leftFittingsPrice(length, connectionPool);
@@ -535,14 +541,14 @@ public class Calculator {
 
     public static double totalCostPrice(int length, int width, ConnectionPool connectionPool, boolean hasShed, int shedLength, int shedWidth) {
         double price = 0;
-        price += postCostPrice(length, connectionPool, hasShed, width);
+        price += postCostPrice(length, connectionPool, hasShed, width, shedWidth);
         price += rafterCostPrice(length, width, connectionPool);
         price += beamCostPrice(length, connectionPool);
         price += fittingScrewCostPrice(connectionPool);
         price += roofScrewCostPrice(connectionPool);
         price += roofPanelCostPrice(length, width, connectionPool);
-        price += boltCostPrice(length, connectionPool, hasShed, width);
-        price += discCostPrice(length, hasShed, connectionPool, width);
+        price += boltCostPrice(length, connectionPool, hasShed, width, shedWidth);
+        price += discCostPrice(length, hasShed, connectionPool, width, shedWidth);
         price += bandCostPrice(connectionPool);
         price += rightFittingsCostPrice(length, connectionPool);
         price += leftFittingsCostPrice(length, connectionPool);
@@ -587,7 +593,7 @@ public class Calculator {
         ArrayList<Integer> listOfPartAmounts = new ArrayList<>();
 
         //amount of posts
-        listOfPartAmounts.add(amountOfPosts(length, hasShed, width));
+        listOfPartAmounts.add(amountOfPosts(length, hasShed, width, shedWidth));
         //Amount of rafters
         listOfPartAmounts.add(amountOfRafters(length));
         //There will always be 2 beams for beamid1
@@ -615,9 +621,9 @@ public class Calculator {
             listOfPartAmounts.add(0);
         }
         //Amount of bolts
-        listOfPartAmounts.add(amountOfBolts(length, hasShed, connectionPool, width));
+        listOfPartAmounts.add(amountOfBolts(length, hasShed, connectionPool, width, shedWidth));
         //Amount of discs
-        listOfPartAmounts.add(amountOfDiscs(length, hasShed, width));
+        listOfPartAmounts.add(amountOfDiscs(length, hasShed, width, shedWidth));
         //Amount of hollow bands
         listOfPartAmounts.add(bandAmount);
         //Amount of right fittings
@@ -717,7 +723,6 @@ public class Calculator {
     //Used for both beams and roof panels when the length of one is not enough
     private static int[] getVariantsidsFromLength(int length, int partid, ConnectionPool connectionPool) {
         int[] idArray = new int[2];
-
         switch (length) {
             case 630:
                 idArray[0] = PartFacade.variantidFromLengthAndPartid(300, partid, connectionPool);
@@ -731,23 +736,19 @@ public class Calculator {
                 idArray[0] = PartFacade.variantidFromLengthAndPartid(300, partid, connectionPool);
                 idArray[1] = PartFacade.variantidFromLengthAndPartid(390, partid, connectionPool);
                 break;
-
             case 720:
                 idArray[0] = PartFacade.variantidFromLengthAndPartid(300, partid, connectionPool);
                 idArray[1] = PartFacade.variantidFromLengthAndPartid(420, partid, connectionPool);
                 break;
-
             case 750:
                 idArray[0] = PartFacade.variantidFromLengthAndPartid(300, partid, connectionPool);
                 idArray[1] = PartFacade.variantidFromLengthAndPartid(450, partid, connectionPool);
                 break;
-
             default:
                 idArray[0] = PartFacade.variantidFromLengthAndPartid(300, partid, connectionPool);
                 idArray[1] = PartFacade.variantidFromLengthAndPartid(480, partid, connectionPool);
                 break;
         }
-
         return idArray;
     }
 }
