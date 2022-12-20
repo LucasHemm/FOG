@@ -31,7 +31,7 @@ public class CarportSVG {
         double var = Calculator.amountOfPosts(length, hasShed, width,shedwidth);
         System.out.println(var);
         if(hasShed){
-            var -= 3;
+            var -= 4;
             if(shedwidth == width-70){
                 var--;
             }

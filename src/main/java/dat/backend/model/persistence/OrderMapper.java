@@ -4,7 +4,6 @@ import dat.backend.model.entities.Order;
 import dat.backend.model.entities.PartList;
 import dat.backend.model.entities.Parts;
 import dat.backend.model.exceptions.DatabaseException;
-import dat.backend.model.services.Calculator;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -61,71 +60,71 @@ class OrderMapper {
                     int length = rs.getInt("length");
                     int width = rs.getInt("width");
                     int postid = rs.getInt("postid");
-                    Parts post = OrderMapper.createPartsFromPartVariantId(postid, connectionPool);
+                    Parts post = OrderMapper.getPartFromPartVariantId(postid, connectionPool);
                     partsArrayList.add(post);
                     int rafterid = rs.getInt("rafterid");
-                    Parts rafter = OrderMapper.createPartsFromPartVariantId(rafterid, connectionPool);
+                    Parts rafter = OrderMapper.getPartFromPartVariantId(rafterid, connectionPool);
                     partsArrayList.add(rafter);
                     int beam1id = rs.getInt("beam1id");
-                    Parts beam1 = OrderMapper.createPartsFromPartVariantId(beam1id, connectionPool);
+                    Parts beam1 = OrderMapper.getPartFromPartVariantId(beam1id, connectionPool);
                     partsArrayList.add(beam1);
                     int beam2id = rs.getInt("beam2id");
-                    Parts beam2 = OrderMapper.createPartsFromPartVariantId(beam2id, connectionPool);
+                    Parts beam2 = OrderMapper.getPartFromPartVariantId(beam2id, connectionPool);
                     if (beam2 != null) {
                         partsArrayList.add(beam2);
                     }
                     int fittingscrewid = rs.getInt("fittingscrewid");
-                    Parts fittingscrew = OrderMapper.createPartsFromPartVariantId(fittingscrewid, connectionPool);
+                    Parts fittingscrew = OrderMapper.getPartFromPartVariantId(fittingscrewid, connectionPool);
                     partsArrayList.add(fittingscrew);
                     int roofscrewid = rs.getInt("roofscrewid");
-                    Parts roofscrew = OrderMapper.createPartsFromPartVariantId(roofscrewid, connectionPool);
+                    Parts roofscrew = OrderMapper.getPartFromPartVariantId(roofscrewid, connectionPool);
                     partsArrayList.add(roofscrew);
                     int roof1id = rs.getInt("roof1id");
-                    Parts roof1 = OrderMapper.createPartsFromPartVariantId(roof1id, connectionPool);
+                    Parts roof1 = OrderMapper.getPartFromPartVariantId(roof1id, connectionPool);
                     partsArrayList.add(roof1);
                     int roof2id = rs.getInt("roof2id");
-                    Parts roof2 = OrderMapper.createPartsFromPartVariantId(roof2id, connectionPool);
+                    Parts roof2 = OrderMapper.getPartFromPartVariantId(roof2id, connectionPool);
                     if (roof2 != null) {
                         partsArrayList.add(roof2);
                     }
                     int boltid = rs.getInt("boltid");
-                    Parts bolt = OrderMapper.createPartsFromPartVariantId(boltid, connectionPool);
+                    Parts bolt = OrderMapper.getPartFromPartVariantId(boltid, connectionPool);
                     partsArrayList.add(bolt);
                     int discid = rs.getInt("discid");
-                    Parts disc = OrderMapper.createPartsFromPartVariantId(discid, connectionPool);
+                    Parts disc = OrderMapper.getPartFromPartVariantId(discid, connectionPool);
                     partsArrayList.add(disc);
                     int hollowbandid = rs.getInt("hollowbandid");
-                    Parts hollowband = OrderMapper.createPartsFromPartVariantId(hollowbandid, connectionPool);
+                    Parts hollowband = OrderMapper.getPartFromPartVariantId(hollowbandid, connectionPool);
                     partsArrayList.add(hollowband);
                     int rightfittingid = rs.getInt("rightfittingid");
-                    Parts rightfitting = OrderMapper.createPartsFromPartVariantId(rightfittingid, connectionPool);
+                    Parts rightfitting = OrderMapper.getPartFromPartVariantId(rightfittingid, connectionPool);
                     partsArrayList.add(rightfitting);
                     int leftfittingid = rs.getInt("leftfittingid");
-                    Parts leftfitting = OrderMapper.createPartsFromPartVariantId(leftfittingid, connectionPool);
+                    Parts leftfitting = OrderMapper.getPartFromPartVariantId(leftfittingid, connectionPool);
                     partsArrayList.add(leftfitting);
                     int lathid = rs.getInt("lathid");
-                    Parts lath = OrderMapper.createPartsFromPartVariantId(lathid, connectionPool);
+                    Parts lath = OrderMapper.getPartFromPartVariantId(lathid, connectionPool);
                     partsArrayList.add(lath);
                     int boardid = rs.getInt("boardid");
-                    Parts board = OrderMapper.createPartsFromPartVariantId(boardid, connectionPool);
+                    Parts board = OrderMapper.getPartFromPartVariantId(boardid, connectionPool);
                     partsArrayList.add(board);
                     int gablehollowid = rs.getInt("gablehollowid");
-                    Parts gablehollow = OrderMapper.createPartsFromPartVariantId(gablehollowid, connectionPool);
+                    Parts gablehollow = OrderMapper.getPartFromPartVariantId(gablehollowid, connectionPool);
                     partsArrayList.add(gablehollow);
                     int sidehollowid = rs.getInt("sidehollowid");
-                    Parts sidehollow = OrderMapper.createPartsFromPartVariantId(sidehollowid, connectionPool);
+                    Parts sidehollow = OrderMapper.getPartFromPartVariantId(sidehollowid, connectionPool);
                     partsArrayList.add(sidehollow);
                     int screwid = rs.getInt("screwid");
-                    Parts screw = OrderMapper.createPartsFromPartVariantId(screwid, connectionPool);
+                    Parts screw = OrderMapper.getPartFromPartVariantId(screwid, connectionPool);
                     partsArrayList.add(screw);
                     int doorhandleid = rs.getInt("doorhandleid");
-                    Parts doorhandle = OrderMapper.createPartsFromPartVariantId(doorhandleid, connectionPool);
+                    Parts doorhandle = OrderMapper.getPartFromPartVariantId(doorhandleid, connectionPool);
                     partsArrayList.add(doorhandle);
                     int thingeid = rs.getInt("thingeid");
-                    Parts thinge = OrderMapper.createPartsFromPartVariantId(thingeid, connectionPool);
+                    Parts thinge = OrderMapper.getPartFromPartVariantId(thingeid, connectionPool);
                     partsArrayList.add(thinge);
                     int anglefittingid = rs.getInt("anglefittingid");
-                    Parts anglefitting = OrderMapper.createPartsFromPartVariantId(anglefittingid, connectionPool);
+                    Parts anglefitting = OrderMapper.getPartFromPartVariantId(anglefittingid, connectionPool);
                     partsArrayList.add(anglefitting);
 
 
@@ -150,7 +149,7 @@ class OrderMapper {
 
     }
 
-    private static Parts createPartsFromPartVariantId(int partVariantId, ConnectionPool connectionPool) throws DatabaseException {
+    private static Parts getPartFromPartVariantId(int partVariantId, ConnectionPool connectionPool) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "");
 
         Parts part = null;
@@ -166,7 +165,7 @@ class OrderMapper {
                     int length = rs.getInt("partlength");
                     int partid = rs.getInt("partsid");
                     System.out.println(partid + "dette er dit part id");
-                    part = OrderMapper.createPartsFromPartId(partid, length, connectionPool);
+                    part = OrderMapper.getPartFromPartId(partid, length, connectionPool);
                 }
             }
         } catch (SQLException ex) {
@@ -208,7 +207,7 @@ class OrderMapper {
 
     }
 
-    private static Parts createPartsFromPartId(int partid, int length, ConnectionPool connectionPool) throws DatabaseException {
+    private static Parts getPartFromPartId(int partid, int length, ConnectionPool connectionPool) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "");
 
         Parts part = null;
